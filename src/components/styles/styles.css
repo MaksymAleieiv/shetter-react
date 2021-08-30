@@ -1,0 +1,322 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-size: 14px;
+    font-family: 'Source Sans Pro';
+    font-weight: 400;
+    color: #242426;
+}
+
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro');
+
+*:focus{
+    outline: none;
+}
+
+#hidden,
+.hidden{
+    display:none;
+}
+
+input[type="search"]::-webkit-search-decoration,
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-results-button,
+input[type="search"]::-webkit-search-results-decoration {
+  -webkit-appearance:none;
+}
+
+body{
+    background: #faf9ff;
+}
+
+main{
+    width: 100%;
+}
+
+li{
+    list-style: none;
+}
+
+a{
+    text-decoration: none;
+    color: #242426;
+}
+
+#Divider{
+    width:80%;
+    height: 1px;
+    background: #EDE9F9;
+    position: absolute;
+    right:0;
+}
+
+.DividerHolders{
+    max-height: 1px;
+    padding: 0;
+}
+
+.post,
+.settings {
+    background: #ffffff;
+    border-radius: 4px;
+    width: inherit;
+    margin-bottom: 16px;
+    display: block;
+    min-height: 98px;
+    position: relative;
+    /*box-shadow: rgb(136 153 166 / 20%) 0px 0px 15px, rgb(136 153 166 / 15%) 0px 0px 3px 1px;*/
+}
+
+.settings{
+    height: 712px;
+}
+
+.post.error,
+.settings.error{
+    animation: blinkError .5s 1;
+}
+.post.copy,
+.settings.copy,
+#userInfo__inner.copy{
+    animation: blinkCopy .5s 1;
+}
+@keyframes blinkError { 0%{ background:red; } 100%{ background:white; } }
+@keyframes blinkCopy { 0%{ background:skyblue; } 100%{ background:white; } }
+.post{   
+    cursor: pointer;
+}
+
+#pageWrapper__Overlay.fixed{
+    position: fixed;
+    left: 0;
+    width: 100%;
+}
+
+#main{
+    display: flex;
+    width: 1024px;
+    height: inherit;
+    margin-left: calc(50% - 512px);
+    margin-top: 16px;
+    position: absolute;
+}
+
+#leftSideBar{
+    width: 192px;
+    height: 142px;
+}
+
+#leftSideBar nav > li{
+    width: 192px;
+    height: 42px;
+    border-radius: 4px;
+    display: flex;
+    position: relative;
+    color:#242426;
+    padding-top: 12px;
+    padding-left: 42px;
+}
+
+#leftSideBar nav > li > a:before{
+    content: "";
+    position: absolute;
+    left: 10px;
+    top: 0;
+    bottom: 0;
+}
+
+#leftSideBar nav > li.active{
+    background: #ffffff;
+}
+
+#leftSideBar nav > li:hover{
+    background: #ffffff;
+}
+
+#Hot{
+    display: block;
+}
+
+#Hot:before{
+    width: 13.5px;
+    background: url(../images/Hot.svg) center / contain no-repeat;
+}
+
+#Recent{
+    height: 18px;
+    width: 42px;
+    position: absolute;
+    right:0;
+    border-left: 1px solid rgba(125, 116, 153, 0.25);
+    background: url(../images/Recent.svg) center / contain no-repeat;
+    opacity: .75;
+}
+
+#Subscriptions:before{
+    width: 15px;
+    background: url(../images/Subscriptions.svg) center / contain no-repeat;
+}
+
+#Notifications__inner:before{
+    width: 15px;
+    background: url(../images/Notifications.svg) center / contain no-repeat;
+}
+
+#NotificationsCounter{ 
+    display: block;
+    height: 18px;
+    width: 18px;
+    position: absolute;
+    right:0;
+    background: #7D7499;
+    border-radius: 50%;
+    font-size: 12px;
+    color: #FAF9FF;
+    margin-right:12px;
+    cursor: pointer;
+    margin-top: 1px;
+}
+
+#rightSideBar{
+    margin-left: 24px;
+    width:192px;
+    height:257px;
+    background: #FFFFFF;
+}
+
+#rightSideBar > ul{
+    width:192px;
+    background: #FFFFFF;
+    padding: 16px;
+    border-radius: 4px;
+}
+
+#sfu{
+    font-weight: 700;
+    color: #242426;
+}
+
+#rightSideBar > ul > li > div{
+    display: flex;
+    margin-top: 16px;
+} 
+
+#rightSideBar > ul > li > div > div{
+    margin-left: 8px;
+    width: 96px;
+    position: relative;
+}
+
+.addToFriendsListButton{
+    width:24px;
+    height:24px;
+    background: #7D7499;
+    border-radius: 4px;
+    border: none;
+    background: url(../images/AddFriend.svg) center / contain no-repeat;
+    cursor: pointer;
+    margin-top: 6px;
+}
+
+.addToFriendsListButton.active{
+    background: url(../images/AddedFriend.svg) center / contain no-repeat;
+}
+
+#Divider2{
+    width: 95%;
+    height: 1px;
+    background: #EDE9F9;
+    right:0;
+}
+
+#rightSideBar > a{
+    margin: 18px;
+    color: #7F61E1;
+    display: block;
+}
+
+.sugUsername{
+    font-weight: 600;
+    font-size: 12px;
+    color: #242426;
+}
+
+.sugTag{
+    font-weight: normal;
+    font-size: 12px;
+    color: #242426;
+    opacity: 0.5;
+    position: absolute;
+    top: 17px;
+}
+
+#userPageLikes__buttons{ 
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    width: inherit;
+    display: block;
+    height: 46px;
+    position: relative;
+    border-bottom: 1px inset rgba(237, 233, 249, 1);
+    background: #ffffff;
+}
+
+#userPageLikes__buttons button {
+    border: none;
+    background-color: transparent;
+    bottom: 0;
+    margin-left: 16px;
+    border-bottom: 2px solid transparent;
+    height: 46px;
+    cursor: pointer;
+    font-weight: 600;
+    color: #242426;
+
+}
+
+#userPageLikes__buttons button:hover,
+#userPageLikes__buttons button.active{
+    border-bottom: 2px #7D7499 inset;
+}
+
+.bfButton{
+    width: 3.5%;
+    background: rgba(0,0,0,.1);
+    border: none;
+    color: white;
+    font-size: 30px;
+    font-weight: 1000;
+    cursor: pointer;
+}
+
+.bfButton:hover{
+    background: rgba(0,0,0,.2);
+}
+
+#PopUp{
+    position:fixed;
+    width: 280px;
+    height: 70px;
+    z-index: 6;
+    bottom: -220px;
+    right: 30px;
+    border: 2px red solid;
+    background:rgb(177, 82, 82);
+    color: #EDE9F9;
+    font-weight: 600;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 68px;
+    transform: translate(280px, 0px);
+    transition-duration: .5s;
+}
+
+#PopUp.active{
+    transform: translate(0, -240px);
+    transition-duration: 1s;
+}
+
+.hidden{
+    display: none;
+}

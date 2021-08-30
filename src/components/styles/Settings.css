@@ -1,0 +1,72 @@
+.settingsTitle{
+    font-weight: bold;
+    font-size: 20px;
+    line-height: 100%;
+    color: #242426;
+    height: 52px;
+    padding-top: 16px;
+    padding-left: 16px;
+}
+
+.settingsFormForm{
+    padding-left: 16px;
+    padding-bottom: 16px;
+    position: relative;
+    top: -50px;
+}
+
+.settingsFormForm label{
+    color: rgba(36, 36, 38, 0.75);
+    font-weight: 600;
+    display: inline-block
+}
+
+.settingsForm.submit{
+    width: 53px;
+    height: 32px;
+    margin-top: 4px;
+    margin-left: 522px;
+}
+
+.settingsForm.formInput{
+    resize: none;
+    border: 2px solid rgba(82, 72, 114, 0.05);
+    width: 576px;
+    height: 40px;
+    margin-bottom: 12px;
+    display: inline-block
+}
+
+.settingsForm.formInput.fat{
+    height: 128px;
+}
+
+.userBackground.settings{
+    border-radius: 0;
+}
+
+.userAvatar.settings{
+    top: -75px;
+}
+
+.changeBackgroundPhoto,
+.changeProfilePhoto{
+    background: url(../images/changeAvatar.svg) 50% / contain no-repeat;
+    background-size: 32px 32px;
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    position: relative;
+    left: -8px;
+    top: -137px;
+    border: none;
+    cursor: pointer;
+    display: block;
+}
+
+.changeBackgroundPhoto{
+    height: 152px;
+    width: 608px;
+    left: 0px;
+    top: 0px;
+}

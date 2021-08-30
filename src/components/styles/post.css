@@ -1,0 +1,634 @@
+#feed{
+    width: 608px;
+    min-height: 220px;
+    margin-left: 16px;
+}
+
+.createPost{
+    background: #ffffff;
+    border-radius: 4px;
+    width: inherit;
+    padding: 16px;
+    min-height: 125px;
+    position: relative;
+    margin-bottom: 16px;
+}
+
+.createPost > div{
+    display: flex;
+}
+
+.newPostInput,
+#newPostInput{
+    color: rgba(36, 36, 38, .75);
+    outline: none;
+    border: none;
+    width: 500px;
+    padding-right: 2px;
+    min-height: 32px;
+    max-height: 110px;
+	box-sizing: border-box;
+    resize:none;
+    overflow: hidden;
+    background: transparent;
+}
+
+#newPostInput{
+    margin-left: 16px;
+    margin-bottom: 16px;
+}
+
+.smileButton {   
+    width: 18px;
+    height: 18px;
+    position: absolute;
+    top: 19px;
+    right: 23px;
+    background: url(../images/SmileButton.svg) center / contain no-repeat;
+    cursor: pointer;
+    border: none;
+}
+
+#newPostInput:focus{
+    color: rgb(36, 36, 38);
+}
+
+#PopUp > button{
+    margin: 5px;
+}
+
+.newPostSettings{
+    margin-left: 16px;
+    position: relative;
+    right: 16px;
+    height: 40px; 
+}
+
+.newPostSettings > div {
+    position: absolute;
+    top: 7px;
+    left: 60px;
+}
+
+#newPostSettings{
+    width: calc(100% - 32px);
+    bottom: 16px;
+    position: absolute;
+}
+
+.newPostSettings > label{
+    width: 56px;
+    height: 40px;
+    display: block;
+    cursor: pointer;
+}
+
+.smilesHolder{
+    width: 182px;
+    right: 12px;
+    top: 44px;
+    overflow: hidden;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.smilesHolder > button {
+    min-width: 30px;
+    min-height: 30px;
+    background: transparent;
+    border:none;
+    cursor: pointer;
+}
+
+.addImageLabel,
+#addImageLabel{
+    background: url(../images/addImage.svg) center / contain no-repeat;
+    opacity: .5;
+    border: none;
+    cursor: pointer;
+    display: block;
+    width: 18px;
+    height: 18px;
+    position: absolute;
+    bottom: 16px;
+    left: 16px;
+}
+
+.addImageInput,
+#addImageInput{
+    display: none;
+}
+
+.commentToComment{
+    margin-left: 16px;
+}
+
+.commentToPost{
+    margin-bottom: 8px;
+}
+
+.newPostCancelButton,
+.newPostButton,
+#newPostButton{
+    background: #7D7499;
+    border-radius: 4px;
+    width: 52px;
+    height: 32px;
+    font-weight: 600;
+    line-height: 16px;
+    color: #FAF9FF;
+    border: none;
+    bottom: -7px;
+    right: 0;
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+}
+
+.newPostCancelButton{
+    background: transparent;
+    right: 60px;
+    color:#524872;
+}
+
+#showNewPostsButton{
+    height: 56px;
+    border-radius: 8px;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 56px;
+    cursor: pointer;
+}
+
+#newPostsCounter{
+    padding: 1px 3px;
+    background: #7D7499;
+    border-radius: 4px;
+    color: #FAF9FF;
+    font-size: 12px;
+}
+
+.deletePostHolder{
+    margin: 10px 16px;
+    width:100%
+}
+
+.deletePostHolder__text{
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 140%;
+    color: #242426;
+}
+
+.deletePostHolder__buttons{
+    margin-top: 16px;
+}
+
+.deletePostButton,
+.deletePostCancelButton{
+    border-radius: 4px;
+    width: 88px;
+    height: 32px;
+    font-weight: 600;
+    line-height: 16px;
+    border: none;
+    cursor: pointer;
+    margin: auto
+}
+
+.deletePostButton{
+    background: rgba(233, 55, 55, 0.05);
+    border: 1px solid rgba(233, 55, 55, 0.05);
+    color: rgba(233, 55, 55, 1);
+    margin-left: 16px;
+}
+
+.deletePostCancelButton{
+    color: rgba(250, 249, 255, 1);
+    background: #524872;
+}
+
+.postInner{
+    padding: 16px;
+    padding-bottom: 0;
+    width: 576px;
+    display: flex;
+}
+
+.authorAvatarBlock{
+    min-width: 44px;
+    height: 100%;
+}
+
+.authorAvatarBlock > div{
+    cursor: pointer;
+}
+
+.authorAvatar{
+    width:32px;
+    height: 32px;
+    border-radius: 50%;
+}
+
+.postBlock{
+    margin-top: 2px;
+}
+
+.Username{
+    font-weight: 600;
+    margin-right:4px;
+    cursor: pointer;
+}
+
+.tag{
+    opacity: .5;
+    margin-bottom: 4px;
+    font-weight: 200;
+    margin-left:4px;
+}
+
+.postContent{
+    width:488px;
+    margin-top:4px;
+    word-wrap: break-word;
+    min-height: 40px;
+}
+
+.postImages{
+    margin-top: 8px;
+}
+
+
+.other{
+    display: flex;
+    width:200px;
+    height: 40px;
+}
+
+.comment_btn,
+.other > button{
+    color: #242426;
+    opacity: 0.75;
+    position:relative;
+    display: block;
+    border: none;
+    cursor: pointer;
+    background: transparent;
+    padding-left: 23px;
+    margin-right: 27px;
+    width: 40px;
+    height: 40px;
+}
+
+.comment_btn.active,
+.other > button.active{
+    color: #7F61E1;
+}
+
+.comment_btn:before,
+.other > button:before{
+    content: "";
+    position: absolute;
+    left: 0;
+    width: 18px;
+    height: 18px;
+}
+
+.comment_btn.active:before,
+.other > button.active:before{
+    filter: invert(41%) sepia(67%) saturate(2223%) hue-rotate(230deg) brightness(91%) contrast(93%);
+}
+
+.comment_btn:before{
+    background: url(../images/Comment.svg) center / contain no-repeat;
+}
+
+.repost_btn:before{
+    background: url(../images/Repost.svg) center / contain no-repeat;
+}
+
+.like_btn:before{
+    background: url(../images/Like.svg) center / contain no-repeat;
+}
+
+.like_btn.active:before{
+    background: url(../images/LikeActive.svg) center / contain no-repeat;
+}
+
+.addToBookmark_btn{
+    color: transparent;
+}
+
+.addToBookmark_btn:before{
+    background: url(../images/Bookmark.svg) center / contain no-repeat;
+}
+
+.addToBookmark_btn.active:before{
+    background: url(../images/BookmarkActive.svg) center / contain no-repeat;
+}
+
+.postImages,
+#newPostImages{
+    display: grid;
+    max-height: 600px;
+    width: 488px;
+    margin: auto;
+    padding-bottom: 9px;
+    grid-template-columns: 122px 122px 122px 122px;
+    grid-template-rows: 112px 112px;
+}
+
+.postSettingsButton{
+    min-width: 30px;
+    left: 8px;
+    height: 30px;
+    line-height: 30px;
+    position: relative;
+    background-color: transparent;
+    cursor: pointer;
+    border:none;
+}
+
+.postSettings{
+    width: 224px;
+    right: 12px;
+    top: 44px;
+}
+
+.postImages.n_0,
+#newPostImages.n_0{
+    grid-template-columns: 0;
+    grid-template-rows: 0;
+    padding-bottom: 0px;
+}
+
+.postImages.n_1,
+#newPostImages.n_1{
+    grid-template-areas:
+        "p1 p1 p1 p1"
+        "p1 p1 p1 p1";
+}
+
+.postImages.n_2,
+#newPostImages.n_2{
+    grid-template-areas:
+        "p1 p1 p2 p2"
+        "p1 p1 p2 p2";
+}
+
+.postImages.n_3,
+#newPostImages.n_3{
+    grid-template-areas:
+        "p1 p1 p2 p2"
+        "p1 p1 p3 p3";
+}
+
+.postImages.n_4,
+#newPostImages.n_4{
+    grid-template-areas:
+        "p1 p1 p2 p2"
+        "p3 p3 p4 p4";
+}
+
+.postImages.n_5,
+#newPostImages.n_5{
+    grid-template-areas:
+        "p1 p1 p2 p2"
+        "p3 p3 p4 p5";
+}
+
+.postImages.n_6,
+#newPostImages.n_6{
+    grid-template-areas:
+        "p1 p1 p2 p2"
+        "p3 p4 p5 p6";
+}
+
+.postImages > div:nth-child(0n+1),
+#newPostImages > div:nth-child(0n+1){
+    grid-area: p1;
+}
+.postImages > div:nth-child(0n+2),
+#newPostImages > div:nth-child(0n+2){
+    grid-area: p2;
+}
+.postImages > div:nth-child(0n+3),
+#newPostImages > div:nth-child(0n+3){
+    grid-area: p3;
+}
+.postImages > div:nth-child(0n+4),
+#newPostImages > div:nth-child(0n+4){
+    grid-area: p4;
+}
+.postImages > div:nth-child(0n+5),
+#newPostImages > div:nth-child(0n+5){
+    grid-area: p5;
+}
+.postImages > div:nth-child(0n+6),
+#newPostImages > div:nth-child(0n+6){
+    grid-area: p6;
+}
+
+.postImages > div.n_2:nth-child(0n+1),
+#newPostImages > div.n_2:nth-child(0n+1),
+.postImages > div.n_3:nth-child(0n+1),
+#newPostImages > div.n_3:nth-child(0n+1),
+.postImages > div.n_3:nth-child(0n+3),
+#newPostImages > div.n_3:nth-child(0n+3),
+.postImages > div.n_4:nth-child(0n+1),
+#newPostImages > div.n_4:nth-child(0n+1),
+.postImages > div.n_4:nth-child(0n+3),
+#newPostImages > div.n_4:nth-child(0n+3),
+.postImages > div.n_4:nth-child(0n+4),
+#newPostImages > div.n_4:nth-child(0n+4),
+.postImages > div.n_5:nth-child(0n+1),
+#newPostImages > div.n_5:nth-child(0n+1),
+.postImages > div.n_5:nth-child(0n+3),
+#newPostImages > div.n_5:nth-child(0n+3),
+.postImages > div.n_5:nth-child(0n+4),
+#newPostImages > div.n_5:nth-child(0n+4),
+.postImages > div.n_5:nth-child(0n+5),
+#newPostImages > div.n_5:nth-child(0n+5),
+.postImages > div.n_6:nth-child(0n+1),
+#newPostImages > div.n_6:nth-child(0n+1),
+.postImages > div.n_6:nth-child(0n+3),
+#newPostImages > div.n_6:nth-child(0n+3),
+.postImages > div.n_6:nth-child(0n+4),
+#newPostImages > div.n_6:nth-child(0n+4),
+.postImages > div.n_6:nth-child(0n+5),
+#newPostImages > div.n_6:nth-child(0n+5),
+.postImages > div.n_6:nth-child(0n+6),
+#newPostImages > div.n_6:nth-child(0n+6)
+{
+    border-top-right-radius: 0px;
+}
+
+.postImages > div.n_2:nth-child(0n+1),
+#newPostImages > div.n_2:nth-child(0n+1),
+.postImages > div.n_3:nth-child(0n+1),
+#newPostImages > div.n_3:nth-child(0n+1),
+.postImages > div.n_3:nth-child(0n+2),
+#newPostImages > div.n_3:nth-child(0n+2),
+.postImages > div.n_4:nth-child(0n+1),
+#newPostImages > div.n_4:nth-child(0n+1),
+.postImages > div.n_4:nth-child(0n+2),
+#newPostImages > div.n_4:nth-child(0n+2),
+.postImages > div.n_4:nth-child(0n+3),
+#newPostImages > div.n_4:nth-child(0n+3),
+.postImages > div.n_5:nth-child(0n+1),
+#newPostImages > div.n_5:nth-child(0n+1),
+.postImages > div.n_5:nth-child(0n+2),
+#newPostImages > div.n_5:nth-child(0n+2),
+.postImages > div.n_5:nth-child(0n+3),
+#newPostImages > div.n_5:nth-child(0n+3),
+.postImages > div.n_5:nth-child(0n+4),
+#newPostImages > div.n_5:nth-child(0n+4),
+.postImages > div.n_6:nth-child(0n+1),
+#newPostImages > div.n_6:nth-child(0n+1),
+.postImages > div.n_6:nth-child(0n+2),
+#newPostImages > div.n_6:nth-child(0n+2),
+.postImages > div.n_6:nth-child(0n+3),
+#newPostImages > div.n_6:nth-child(0n+3),
+.postImages > div.n_6:nth-child(0n+4),
+#newPostImages > div.n_6:nth-child(0n+4),
+.postImages > div.n_6:nth-child(0n+5),
+#newPostImages > div.n_6:nth-child(0n+5){
+    border-bottom-right-radius: 0px;
+}
+
+.postImages > div.n_2:nth-child(0n+1),
+#newPostImages > div.n_2:nth-child(0n+1),
+.postImages > div.n_3:nth-child(0n+1),
+#newPostImages > div.n_3:nth-child(0n+1),
+.postImages > div.n_4:nth-child(0n+1),
+#newPostImages > div.n_4:nth-child(0n+1),
+.postImages > div.n_4:nth-child(0n+3),
+#newPostImages > div.n_4:nth-child(0n+3),
+.postImages > div.n_5:nth-child(0n+1),
+#newPostImages > div.n_5:nth-child(0n+1),
+.postImages > div.n_5:nth-child(0n+3),
+#newPostImages > div.n_5:nth-child(0n+3),
+.postImages > div.n_5:nth-child(0n+4),
+#newPostImages > div.n_5:nth-child(0n+4),
+.postImages > div.n_6:nth-child(0n+1),
+#newPostImages > div.n_6:nth-child(0n+1),
+.postImages > div.n_6:nth-child(0n+3),
+#newPostImages > div.n_6:nth-child(0n+3),
+.postImages > div.n_6:nth-child(0n+4),
+#newPostImages > div.n_6:nth-child(0n+4),
+.postImages > div.n_6:nth-child(0n+5),
+#newPostImages > div.n_6:nth-child(0n+5){
+    border-right: 1px solid white;
+}
+
+.postImages > div.n_2:nth-child(0n+2),
+#newPostImages > div.n_2:nth-child(0n+2),
+.postImages > div.n_3:nth-child(0n+2),
+#newPostImages > div.n_3:nth-child(0n+2),
+.postImages > div.n_3:nth-child(0n+3),
+#newPostImages > div.n_3:nth-child(0n+3),
+.postImages > div.n_4:nth-child(0n+1),
+#newPostImages > div.n_4:nth-child(0n+1),
+.postImages > div.n_4:nth-child(0n+2),
+#newPostImages > div.n_4:nth-child(0n+2),
+.postImages > div.n_4:nth-child(0n+4),
+#newPostImages > div.n_4:nth-child(0n+4),
+.postImages > div.n_5:nth-child(0n+1),
+#newPostImages > div.n_5:nth-child(0n+1),
+.postImages > div.n_5:nth-child(0n+2),
+#newPostImages > div.n_5:nth-child(0n+2),
+.postImages > div.n_5:nth-child(0n+4),
+#newPostImages > div.n_5:nth-child(0n+4),
+.postImages > div.n_5:nth-child(0n+5),
+#newPostImages > div.n_5:nth-child(0n+5),
+.postImages > div.n_6:nth-child(0n+1),
+#newPostImages > div.n_6:nth-child(0n+1),
+.postImages > div.n_6:nth-child(0n+2),
+#newPostImages > div.n_6:nth-child(0n+2),
+.postImages > div.n_6:nth-child(0n+4),
+#newPostImages > div.n_6:nth-child(0n+4),
+.postImages > div.n_6:nth-child(0n+5),
+#newPostImages > div.n_6:nth-child(0n+5),
+.postImages > div.n_6:nth-child(0n+6),
+#newPostImages > div.n_6:nth-child(0n+6){
+    border-bottom-left-radius: 0px;
+}
+
+.postImages > div.n_2:nth-child(0n+2),
+#newPostImages > div.n_2:nth-child(0n+2),
+.postImages > div.n_3:nth-child(0n+2),
+#newPostImages > div.n_3:nth-child(0n+2),
+.postImages > div.n_3:nth-child(0n+3),
+#newPostImages > div.n_3:nth-child(0n+3),
+.postImages > div.n_4:nth-child(0n+2),
+#newPostImages > div.n_4:nth-child(0n+2),
+.postImages > div.n_4:nth-child(0n+3),
+#newPostImages > div.n_4:nth-child(0n+3),
+.postImages > div.n_4:nth-child(0n+4),
+#newPostImages > div.n_4:nth-child(0n+4),
+.postImages > div.n_5:nth-child(0n+2),
+#newPostImages > div.n_5:nth-child(0n+2),
+.postImages > div.n_5:nth-child(0n+3),
+#newPostImages > div.n_5:nth-child(0n+3),
+.postImages > div.n_5:nth-child(0n+4),
+#newPostImages > div.n_5:nth-child(0n+4),
+.postImages > div.n_5:nth-child(0n+5),
+#newPostImages > div.n_5:nth-child(0n+5),
+.postImages > div.n_6:nth-child(0n+2),
+#newPostImages > div.n_6:nth-child(0n+2),
+.postImages > div.n_6:nth-child(0n+3),
+#newPostImages > div.n_6:nth-child(0n+3),
+.postImages > div.n_6:nth-child(0n+4),
+#newPostImages > div.n_6:nth-child(0n+4),
+.postImages > div.n_6:nth-child(0n+5),
+#newPostImages > div.n_6:nth-child(0n+5),
+.postImages > div.n_6:nth-child(0n+6),
+#newPostImages > div.n_6:nth-child(0n+6){
+    border-top-left-radius: 0px;
+}
+.postImages > div.n_3:nth-child(0n+3),
+#newPostImages > div.n_3:nth-child(0n+3),
+.postImages > div.n_4:nth-child(0n+3),
+#newPostImages > div.n_4:nth-child(0n+3),
+.postImages > div.n_4:nth-child(0n+4),
+#newPostImages > div.n_4:nth-child(0n+4),
+.postImages > div.n_5:nth-child(0n+3),
+#newPostImages > div.n_5:nth-child(0n+3),
+.postImages > div.n_5:nth-child(0n+4),
+#newPostImages > div.n_5:nth-child(0n+4),
+.postImages > div.n_5:nth-child(0n+5),
+#newPostImages > div.n_5:nth-child(0n+5),
+.postImages > div.n_6:nth-child(0n+3),
+#newPostImages > div.n_6:nth-child(0n+3),
+.postImages > div.n_6:nth-child(0n+4),
+#newPostImages > div.n_6:nth-child(0n+4),
+.postImages > div.n_6:nth-child(0n+5),
+#newPostImages > div.n_6:nth-child(0n+5),
+.postImages > div.n_6:nth-child(0n+6),
+#newPostImages > div.n_6:nth-child(0n+6){
+    border-top: 1px solid white;
+}
+
+.postImage,
+.newPostImage{
+    overflow: hidden;
+    background-size: cover;
+    position: relative;
+    border-radius: 8px;
+}
+
+.newPostImage > button,
+#PopUp > button{
+    border:none;
+    width: 22px;
+    height:22px;
+    cursor: pointer;
+    background: url(../images/ClosePhotoButton.svg);
+    right: 0;
+    margin:6px;
+    position: absolute;
+    z-index: 2;
+    color: #FAF9FF;
+    font-weight: 600;
+}
+

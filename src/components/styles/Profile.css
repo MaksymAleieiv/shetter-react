@@ -1,0 +1,256 @@
+#h170{
+    height: 180px;
+}
+#h205{
+    height: 215px;
+}
+#h220{
+    height: 230px;
+}
+#h240{
+    height: 250px;
+}
+.postSettingsProfile.postSettings{
+    right: 230px;
+    top: 200px;
+}
+
+#ProfilePage{
+    width: 100%;
+    background: #faf9ff;
+    margin-bottom: 16px;
+}
+
+#userInfo{
+    width: 100%;
+    min-height: 327px;
+    background: #FFFFFF;
+    border-radius: 4px;
+    position: relative;
+}
+
+.userBackground{
+    height: 152px;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+}
+
+.userAvatar{
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    border: 8px solid #FFFFFF;
+    position: relative;
+    left: 16px;
+    top: 72px;
+    background-color: white;
+}
+
+.userAvatar > img{
+    width: 128px;
+    height: 128px;
+    border-radius: 50%;
+    margin-left: -2px;
+    margin-top: -2px;
+}
+
+.settingsForThisUser{
+    position: absolute;
+    right: 0;
+    top: 164px;
+    width: 132px;
+}
+
+.settingsForThisUser.short{
+    width: 46px;
+}
+
+.settingsForThisUser.long{
+    width:188px;
+}
+
+.settingsForThisUser > button{
+    min-width: 32px;
+    min-height: 32px;
+    margin-right: 12px;
+    cursor: pointer;
+    position: absolute;
+    top: 0;
+}
+
+.userSettingsButton{
+    left: 0;
+    border: none;
+    background-color: transparent;
+}
+
+.setNotificationsButton{
+    border-radius: 4px;
+    left: 44px;
+}
+
+.setNotificationsButton.notsub{
+    background: #7D7499;
+    border : none;
+}
+
+.setNotificationsButton.notsub > i {
+    background: url(../images/Notifications.svg) center / contain no-repeat;
+    filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(288deg) brightness(102%) contrast(102%);
+}
+
+.setNotificationsButton.sub {
+    background: #FAF9FF;
+    border: 1.4px solid rgba(82, 72, 114, 0.05);
+}
+
+.setNotificationsButton.notsub > i{
+    width: 15px;
+    height: 15px;
+    margin-left: 9px;
+}
+.setNotificationsButton > i{
+    width: 18px;
+    height: 18px;
+    display: block;
+    margin-left: 5px;
+}
+
+.setNotificationsButton.sub > i {
+    background: url(../images/ProfileBell.svg) center / contain no-repeat;
+}
+
+.subscribeButton{
+    right: 0;
+    background: #FAF9FF;
+    border: 1.4px solid rgba(82, 72, 114, 0.05);
+    border-radius: 4px;
+}
+
+.subscribeButton.notsub{
+    background: #7D7499;
+    width: 88px;
+    height: 32px;
+}
+
+.subscribeButton.notsub > span{
+    font-weight: 600;
+    line-height: 16px;
+    color: #FAF9FF;
+    text-align: left;
+    margin-left: 12px;
+    display: block;
+}
+
+.subscribeButton.notsub > span:after {
+    content: "";
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 30px;
+    background: url(../images/AddFriend.svg) center / contain no-repeat;
+}
+
+.subscribeButton > i{
+    width: 14px;
+    height: 14px;
+    display: block;
+    margin-left: 7px;
+}
+
+.subscribeButton.sub:hover {
+    background: rgba(233, 55, 55, 0.05);
+    border: 1.4px solid rgba(82, 72, 114, 0.05);
+    border-radius: 4px;
+}
+
+.subscribeButton.sub:hover > i {
+    width: 11px;
+    height: 11px;
+    margin-left: 9px;
+    margin-top: 1px;
+    background: url(../images/ProfileUnsubscribeHover.svg) center / contain no-repeat;
+}
+
+.subscribeButton.sub > i{
+    background: url(../images/ProfileUnsubscribe.svg) center / contain no-repeat;
+}
+
+#userInfo__Info{
+    position: relative;
+    left: 16px;
+    top: 65px;
+}
+
+#userInfo__inner{
+    max-height: 245px;
+}
+
+.Username__userProfile{
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.Username__userProfile:hover{
+    text-decoration: none;
+}
+
+.tag__userProfile{
+    font-size: 16px;
+    font-weight: 400;
+}
+
+#userStatus{
+    margin-top: 12px;
+    width: 568px;
+}
+
+#userFollowInfo{
+    margin-top: 16px;
+}
+
+#userFollowInfo > span.__bold{
+    font-weight: 600;
+}
+
+.profileControlButtons{
+    position: absolute;
+    bottom: 0;
+}
+
+.profileControlButtons > button {
+    border: none;
+    background-color: transparent;
+    position: relative;
+    bottom: 0;
+    margin-left: 16px;
+    border-bottom: 2px solid transparent;
+    height: 46px;
+    cursor: pointer;
+    font-weight: 600;
+    color: #242426;
+}
+
+.cf {
+    font-weight: 400;
+    opacity: .75;
+}
+
+.c{ 
+    font-size: 12px;
+}
+
+.profileControlButtons > button.active {
+    border-bottom: 2px solid #7D7499;
+}
+
+.profileControlButtons > button:hover {
+    border-bottom: 2px solid #7D7499;
+}
+
+.ml16{
+    margin-left: 16px;
+}
+
+
