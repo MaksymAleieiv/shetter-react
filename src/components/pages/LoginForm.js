@@ -18,7 +18,7 @@ function LoginForm() {
     const [generalErrorText, setGeneralErrorText] = useState("");
     const setGenTextFromChild = (c) => setGeneralErrorText(c);
     document.title = "Login";
-    if(window.localStorage.getItem('access') && window.sessionStorage.getItem('me')) document.location = "/"
+    if(window.localStorage.getItem('access')) document.location = "/"
 
 
     const login = (values) => {  

@@ -1,38 +1,31 @@
 import Header from '../pageComponents/Header';
 import LeftSidebar from '../pageComponents/LeftSidebar';
 import RightSidebar from '../pageComponents/RightSidebar';
-import SubscriptionsFeed from '../pageComponents/feeds/SubscriptionsFeed';
-import Overlay from '../pageComponents/Overlay';
+import Feed from '../pageComponents/feeds/Feed';
 
 import GetMe from '../functions/GetMe';
-import { useState } from 'react';
+import { useSelector } from 'react-redux'
 
 function Subscribtions() {
-    const [overlayVisibility, setOverlayVisibility] = useState(false);
-    const [overlayImage, setOverlayImage] = useState({});
-    const [overlayImages, setOverlayImages] = useState([]);
     document.title = "Subscriptions"
-   
-    const setOverlayImagesFromChild = (c) => setOverlayImages(c)
-    const setOverlayImageFromChild = (c) => setOverlayImage(c)
-    const setOverlayVisibilityFromChild = (c) => setOverlayVisibility(c)
-    
-    const {me} = GetMe();
-    return (
+    const me = useSelector(state => state.me.me);
+    const overlay = useSelector(state => state.overlay);
+    GetMe();
+    return (me.id !== -1 ?
         <>
-            <Overlay setOverlayVisibility={setOverlayVisibilityFromChild} setOverlayImage={setOverlayImageFromChild} setOverlayImages={setOverlayImagesFromChild}
-            overlayVisibility={overlayVisibility} overlayImage={overlayImage} overlayImages={overlayImages}/>
-            <div id="pageWrapper__Overlay" className={!overlayVisibility ? "" : "fixed"} style={!overlayVisibility ? {} : { top: -window.pageYOffset }}>
-                <Header me={me}/>
+            <div id="pageWrapper__Overlay" className={!overlay.overlayVisibility ? "" : "fixed"} style={!overlay.overlayVisibility ? {} : { top: -window.pageYOffset }}>
+                <Header/>
                 <main>
                     <div id="main">
-                        <LeftSidebar me={me}/>
-                        <SubscriptionsFeed me={me} setOverlayImage={setOverlayImageFromChild} setOverlayVisibility={setOverlayVisibilityFromChild} setOverlayImages={setOverlayImagesFromChild} />                        
-                        {me ? <RightSidebar /> : ""}
+                        <LeftSidebar/>
+                        <Feed urlNum={11} />                        
+                        <RightSidebar />
                     </div>
                 </main>
             </div>
         </>
+        :
+        "Register to get access to this section"
     )
 }
 

@@ -1,15 +1,49 @@
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import axios from 'axios';
 import FastAverageColor from 'fast-average-color'
-function SettingsFeed({me, setU}) {
+import { useDispatch, useSelector } from 'react-redux'
+
+function SettingsFeed() {
+    const dispatch = useDispatch()
+    const me = useSelector(state => state.me.me)
     const [firstName, setFirstName] = useState(me.first_name)
-    const [lastName, setLastName] = useState(me.last_name)
-    const [bio, setBio] = useState(me.bio)
-    const [profilePhoto, setProfilePhoto] = useState(me.profile_photo)
-    const [profilePhotoBlob, setProfilePhotoBlob] = useState(me.profile_photo)
+    const [lastName, setLastName] = useState(me.first_name)
+    const [bio, setBio] = useState(me.first_name)
+    const [profilePhoto, setProfilePhoto] = useState("")
+    const [profilePhotoBlob, setProfilePhotoBlob] = useState("")
+    useEffect(() => {
+        if( me.id !== -1 ){
+            setFirstName(me.first_name)
+            setLastName(me.last_name)
+            setBio(me.bio)
+            setProfilePhoto(me.profile_photo)
+            setProfilePhotoBlob(me.profile_photo)
+        }
+    }, [me])
     const access = window.localStorage.getItem("access");
     if(access) axios.defaults.headers.common['Authorization'] = "Bearer " + access;
+    const getMeData = async () => {
+        const Me = await getMe();
+        if(Me !== ""){
+            dispatch({type : "CHANGE_DATA", payload : Me.data})
+        }
+    }
+    const getMe = async () => {
+        try{
+            const res = await axios.get("/auth/users/me",{});
+            const me = await res;
+            return me;
+        }catch(err){
+            if(JSON.parse(err.request.response).detail === "Given token not valid for any token type"){
+                window.localStorage.removeItem('access');
+                window.localStorage.removeItem('refresh');
+                dispatch({type : "CLEAR_ME"})
+                document.location.reload()
+                return ""
+            }
+        }
+    }
     
     const changeSettings = () => {
         if(!(me.first_name === firstName && me.last_name === lastName && me.bio === bio && profilePhoto === profilePhotoBlob)){
@@ -21,11 +55,10 @@ function SettingsFeed({me, setU}) {
                 })
                 .then(() => {
                     setColor(2)
-                    window.sessionStorage.removeItem('me');
-                    setU(p => p + 1);
+                    getMeData()
                 })
                 .catch(response => {
-                    const res = JSON.parse(response.request.response)
+                    const res = response
                     console.log(res)
                 })
            }
@@ -38,7 +71,9 @@ function SettingsFeed({me, setU}) {
                         'Content-Type' : 'multipart/form-data'
                     }})
                 .then(() => {
-                    setColor(2);setU(p => p + 1)})
+                    setColor(2);
+                    getMeData()
+                })
                 .catch(response => {
                     const res = JSON.parse(response.request.response)
                     console.log(res)
@@ -105,7 +140,7 @@ function SettingsFeed({me, setU}) {
                         setBio(e.target.value)
                     }} className="settingsForm formInput fat" maxLength="200" /><br />
                 </div>
-                <button className="settingsForm submit" type="submit" onClick={changeSettings}>Save</button>
+                <button id="subSetBut" className="settingsForm submit" type="submit" onClick={changeSettings}>Save</button>
                 </div>
             </div>
         </div>

@@ -62,11 +62,7 @@ function RegistrationForm() {
     }
     const b = "   Back"
     const loginGoogle = (response) => {
-        console.log(response)
-        console.log(response.Xb.login_hint)
-        console.log(response.Zb.login_hint)
-        if(response.Zb.login_hint !== undefined) ReglogGoogle(false, response.Zb.login_hint, response.profileObj.email, response.Zb.idpId, response.profileObj.givenName, setGenTextFromChild)
-        if(response.Xb.login_hint !== undefined) ReglogGoogle(false, response.Xb.login_hint, response.profileObj.email, response.Zb.idpId, response.profileObj.givenName, setGenTextFromChild)
+        ReglogGoogle(false, response[Object.getOwnPropertyNames(response)[1]].login_hint, response.profileObj.email, response.Zb.idpId, response.profileObj.givenName, setGenTextFromChild)
     }
     return (
             <div className="RegLogFor" style={{height : '100%'}}>

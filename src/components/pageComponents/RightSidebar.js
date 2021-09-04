@@ -27,7 +27,7 @@ function RightSidebar() {
         axios.post('api/v1/subscribe/' + username)
         .catch(err => console.log(err))
     }
-    return (
+        return (SuggestionsData.length > 0 ?
             <div id="rightSideBar">
                 <ul>
                     <li id="sfu">Suggestions for You</li>
@@ -51,8 +51,7 @@ function RightSidebar() {
                 </ul>
                 <div id="Divider2"></div>
                 <Link to="/sugestions">Show more...</Link>
-            </div>
-    )
+            </div> : "")
 }
 
 export default RightSidebar

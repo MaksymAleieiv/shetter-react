@@ -4,24 +4,23 @@ import RightSidebar from '../pageComponents/RightSidebar';
 import SettingsFeed from '../pageComponents/feeds/SettingsFeed'
 
 import GetMe from '../functions/GetMe';
+import { useSelector } from 'react-redux';
 
-import { useState } from 'react';
 
 function Settings() {
     document.title = "Settings";
-    const [u,setU] = useState(1)
-    const setUFromChild = (h) => setU(h)
-    const {me} = GetMe(u);
+    const me = useSelector(state => state.me.me);
+    GetMe();
     return (
         <>
-            {me !== "" ? 
+            {me.id !== -1 ? 
                 <div id="pageWrapper__Overlay">
-                <Header me={me}/>
-                <main>
-                    <div id="main">
-                            <LeftSidebar me={me}/>
-                            <SettingsFeed me={me} setU={setUFromChild} />
-                            {me ? <RightSidebar /> : ""}
+                    <Header/>
+                    <main>
+                        <div id="main">
+                            <LeftSidebar />
+                            <SettingsFeed  />
+                            <RightSidebar />
                         </div>
                     </main>
                 </div>

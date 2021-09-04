@@ -1,18 +1,18 @@
 import axios from 'axios';
 import { useState, useReducer } from 'react';
-import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux'
+import { render, unmountComponentAtNode } from 'react-dom';
+import { store } from '../../../store/index_Reducer'
+import { Provider } from 'react-redux';
+import Overlay from '../Overlay';
 
-function CreatePostForm({idRed, beingRedacted, setBeingRedacted, content, imagesRed, me, post, postID, parentID, setOverlayImage, setOverlayVisibility, setOverlayImages, setColor, setPost}) {
+function CreatePostForm({idRed, beingRedacted, setBeingRedacted, content, imagesRed, me, post, postID, parentID, setColor, setPost, lastPostID}) {
+    const dispatch = useDispatch()
     const access = window.localStorage.getItem("access");
     if(access) axios.defaults.headers.common['Authorization'] = "Bearer " + access;
     const [newPostContent, setNewPostContent] = useState(content !== undefined ? content : "");
     const [postWarning, setPostWarning] = useState("");
     const smiles = ["🔥", "🤡", "💩", "✋", "👍", "🤜", "🤛", "👏", "👀", "🗿", "🚬"];
-    const placeholdersTexts = ["What's up ?", "You've got something creactive ?", "Boooo, boring !", "Insert your dumb story here",  "Wow, no one cares", 
-        "(:", "Damn, you are actually gonna write something ?", "You could do something productive instead of sitting here", "gg ez",
-        "Are you sure you remember your password ?", "Never gonna give you up...", "*SHOCKING* MONKEY LEARNS TO CODE WITH REACT (GONE WRONG)", "Has anyone seen my GET request ?",
-        "Press Alt + F4 to open admin console", "Interesting fact: snails poop on their food", ""];
-    const placeholdersText = placeholdersTexts[Math.floor(Math.random() * placeholdersTexts.length)]
 
     const [filesArray, setFilesArray] = useState(imagesRed !== undefined ? imagesRed : []);
     const [imagesBlob, setImagesBlob] = useState(imagesRed !== undefined ? imagesRed : []);
@@ -45,9 +45,12 @@ function CreatePostForm({idRed, beingRedacted, setBeingRedacted, content, images
     }
 
     const openImage = (imagesBlob, index) => {
-        setOverlayVisibility(true)
-        setOverlayImage(index)
-        setOverlayImages(imagesBlob)
+        dispatch({type : "CHANGE_DATA__OVERLAY", payload : {
+            overlayVisibility : true,
+            overlayImage : index,
+            overlayImages : imagesBlob
+        }})
+        render(<Provider store={store} ><Overlay/> </Provider>, document.getElementById('portal'))
     }
 
     const [loading, setLoading] = useState(false)
@@ -71,21 +74,18 @@ function CreatePostForm({idRed, beingRedacted, setBeingRedacted, content, images
                     setBeingRedacted(false);
                 }).catch(e => {})
             })
-            .catch(err => {
-                setLoading(false)
-                const res = JSON.parse(err.request.response);
-                console.log(res);
-                console.log(err)
-                setColor(1)
-                if(res.Error === "No 'content' field or no POST request" || err.request.response.includes("Content error")){
-                    setPostWarning("Post must have a content");
-                    return;
-                }
-                setPostWarning("Something went wrong");
-            })
+            .catch(err => { errorCase(err) })
         }
     }
+    const b = document.getElementById('b')
 
+    const getNewPosts = (i) => {
+        axios.get("/api/v1/posts/?startpos="+0+"&endpos="+i)
+        .then((res) => {
+            unmountComponentAtNode(b)
+            dispatch({type : "ADD_POSTS_AT_FRONT", payload : res.data})
+        })
+    }
     const createPost = () => {
         const formData = new FormData();
         formData.append('content', newPostContent);
@@ -99,23 +99,43 @@ function CreatePostForm({idRed, beingRedacted, setBeingRedacted, content, images
         const url = post ? '/api/v1/posts/' : '/api/v1/comments/';
         axios.post(url, formData)
         .then(() => {
-            document.location.reload()
-            setLoading(false)
-            setBeingRedacted(false);
-        })
-        .catch(err => {
-            setLoading(false)
-            const res = JSON.parse(err.request.response);
-            console.log(res);
-            console.log(err)
-            setColor(1)
-            if(res.Error === "No 'content' field or no POST request"){
-                post ? setPostWarning("Post must have a content") : setPostWarning("Comment must have a content");
-                return;
+            if(post){
+                axios.post('/api/v1/posts/listener/', {
+                    'last_id' : lastPostID+''
+                }).then((res) => {
+                    const np = res.data.new_posts;
+                    if (np > 0)
+                        render(
+                            <button id="showNewPostsButton" className="post" onClick={() => getNewPosts(np)}>
+                                View <span id="newPostsCounter">{np}</span> new Shets
+                            </button>, b)
+                })
+                .catch(err => console.log(err.response))
             }
-            setPostWarning("Something went wrong");
+            else document.location.reload()
+            setLoading(false)
+            if(beingRedacted) setBeingRedacted(false);
         })
+        .catch(err => { errorCase(err) })
     }
+
+    const errorCase = (err) => {
+        setLoading(false)
+        console.log(err)
+        const res = JSON.parse(err.request.response);
+        console.log(res);
+        setColor(1)
+        if(res.detail === "Post must contain 'content' field" || res.detail === "No 'content' field or no POST request"){
+            post ? setPostWarning("Post must have a content") : setPostWarning("Comment must have a content");
+            return;
+        }
+        if(res.detail === "Too big images uploaded. Maximum size is 2 MB"){
+            setPostWarning(res.detail)
+            return;
+        }
+        setPostWarning("Something went wrong");
+    }
+
     const keyListenerCP = () => {
         function SearchCP(e){
             document.removeEventListener('keydown', SearchCP)
@@ -125,7 +145,7 @@ function CreatePostForm({idRed, beingRedacted, setBeingRedacted, content, images
     }
     return (
             <>
-                {me !== "" ? 
+                {me.id !== undefined ? 
                     <>
                         {beingRedacted ? keyListenerCP() : null}
                         <div className="postInner">
@@ -134,12 +154,12 @@ function CreatePostForm({idRed, beingRedacted, setBeingRedacted, content, images
                             </div>
                             <div className="postBlock">
                                 <div>
-                                    <Link className="Username" to={"/user/" + me.username}>
+                                    <span className="Username">
                                         {getName(me.username, me.first_name, me.last_name)}
-                                    </Link><span className="tag">@{me.username}</span>
+                                    </span><span className="tag">@{me.username}</span>
                                 </div>
                                 <div className="postContent">
-                                    <textarea className="newPostInput" placeholder={placeholdersText} value={newPostContent} onChange={val => {setNewPostContent(val.target.value); setPostWarning("")}} onClick={e => {e.stopPropagation(); e.preventDefault();}} maxLength={post ? "400" : "200"} />             
+                                    <textarea className="newPostInput" placeholder="What's up ?" value={newPostContent} onChange={val => {setNewPostContent(val.target.value); setPostWarning("")}} onClick={e => {e.stopPropagation(); e.preventDefault();}} maxLength={post ? "400" : "200"} />             
                                     <button className="smileButton" onClick={e => {e.stopPropagation(); e.preventDefault(); closeSmileListener(); setSmile(p => !p)}}></button>
                                 </div>
                                 {post ? 

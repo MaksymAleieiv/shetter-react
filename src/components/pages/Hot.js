@@ -1,35 +1,26 @@
 import Header from '../pageComponents/Header';
 import LeftSidebar from '../pageComponents/LeftSidebar';
 import RightSidebar from '../pageComponents/RightSidebar';
-import Overlay from '../pageComponents/Overlay';
-import HotFeed from '../pageComponents/feeds/HotFeed';
+import Feed from '../pageComponents/feeds/Feed';
 
 import GetMe from '../functions/GetMe';
+import { useSelector } from 'react-redux';
 
-import { useState } from 'react';
 
 function Hot() {
-    const [overlayVisibility, setOverlayVisibility] = useState(false);
-    const [overlayImage, setOverlayImage] = useState({});
-    const [overlayImages, setOverlayImages] = useState([]);
     document.title = "Hot"
-    
-    const setOverlayImagesFromChild = (c) => setOverlayImages(c)
-    const setOverlayImageFromChild = (c) => setOverlayImage(c)
-    const setOverlayVisibilityFromChild = (c) => setOverlayVisibility(c)
+    const overlay = useSelector(state => state.overlay);
 
-    const {me} = GetMe();
+    GetMe();
     return (
         <>
-            <Overlay setOverlayVisibility={setOverlayVisibilityFromChild} setOverlayImage={setOverlayImageFromChild} setOverlayImages={setOverlayImagesFromChild}
-            overlayVisibility={overlayVisibility} overlayImage={overlayImage} overlayImages={overlayImages}/>
-            <div id="pageWrapper__Overlay" className={!overlayVisibility ? "" : "fixed"} style={!overlayVisibility ? {} : { top: -window.pageYOffset }}>
-                <Header me={me}/>
+            <div id="pageWrapper__Overlay" className={!overlay.overlayVisibility ? "" : "fixed"} style={!overlay.overlayVisibility ? {} : { top: -window.pageYOffset }}>
+                <Header/>
                 <main>
                     <div id="main">
-                        <LeftSidebar me={me}/>
-                        <HotFeed me={me} setOverlayImage={setOverlayImageFromChild} setOverlayVisibility={setOverlayVisibilityFromChild} setOverlayImages={setOverlayImagesFromChild} />
-                        {me ? <RightSidebar /> : ""}
+                        <LeftSidebar/>
+                        <Feed urlNum={10}/>
+                        <RightSidebar />
                     </div>
                 </main>
             </div>

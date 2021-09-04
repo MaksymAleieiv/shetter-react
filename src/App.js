@@ -17,6 +17,38 @@ import SubscriptionsPage from './components/pages/Subscriptions';
 
 function App() {
   axios.defaults.baseURL = 'https://fierce-dusk-92502.herokuapp.com';
+  axios.interceptors.request.use(
+        config => {
+          console.log(config)
+            return config;
+        },
+        error => {
+            Promise.reject(error)
+        });
+
+  axios.interceptors.response.use((response) => {
+      console.log(response)
+      return response
+    }, error => {
+      console.log(error)
+      const originalRequest = error.config;
+      if ((error.response.status === 403 || error.response.status === 401) && !originalRequest._retry) {
+          originalRequest._retry = true;
+          return axios.post('/token/refresh/',
+            {
+              'refresh' : window.localStorage.getItem('refresh')
+            })
+            .then(res => {
+              console.log(res)
+              if (res.status === 200) {
+                  window.localStorage.setItem('access', JSON.parse(res.request.response).access)
+                  originalRequest.headers.Authorization = 'Bearer ' + JSON.parse(res.request.response).access
+                  return axios(originalRequest);
+              }
+            })
+      }
+    return Promise.reject(error);
+  })
   return (
       <Router>
           <Switch>

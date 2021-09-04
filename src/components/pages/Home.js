@@ -2,37 +2,26 @@ import Header from '../pageComponents/Header';
 import LeftSidebar from '../pageComponents/LeftSidebar';
 import Feed from '../pageComponents/feeds/Feed';
 import RightSidebar from '../pageComponents/RightSidebar';
-import Overlay from '../pageComponents/Overlay';
 
 import GetMe from '../functions/GetMe';
 
-import { useState } from 'react';
+import { useSelector } from 'react-redux'
 
 
 function Home() {
     document.title = "Home";
-
-    const [overlayVisibility, setOverlayVisibility] = useState(false);
-    const [overlayImage, setOverlayImage] = useState({});
-    const [overlayImages, setOverlayImages] = useState([]);
-
-    const setOverlayImagesFromChild = (c) => setOverlayImages(c)
-    const setOverlayImageFromChild = (c) => setOverlayImage(c)
-    const setOverlayVisibilityFromChild = (c) => setOverlayVisibility(c)
-    
-    const {me} = GetMe();
+    const overlay = useSelector(state => state.overlay);
+    const me = useSelector(state => state.me.me);
+    GetMe();
     return (
             <>
-                <Overlay setOverlayVisibility={setOverlayVisibilityFromChild} setOverlayImage={setOverlayImageFromChild} setOverlayImages={setOverlayImagesFromChild}
-                overlayVisibility={overlayVisibility} overlayImage={overlayImage} overlayImages={overlayImages}/>
-                
-                <div id="pageWrapper__Overlay" className={!overlayVisibility ? "" : "fixed"} style={!overlayVisibility ? {} : { top: -window.pageYOffset }}>
-                    <Header me={me}/>
+                <div id="pageWrapper__Overlay" className={!overlay.overlayVisibility ? "" : "fixed"} style={!overlay.overlayVisibility ? {} : { top: -window.pageYOffset }}>
+                    <Header/>
                     <main>
                         <div id="main">
-                            <LeftSidebar me={me}/>
-                            <Feed me={me} setOverlayImages={setOverlayImagesFromChild} setOverlayImage={setOverlayImageFromChild} setOverlayVisibility={setOverlayVisibilityFromChild} />
-                            {me ? <RightSidebar /> : ""}
+                            <LeftSidebar/>
+                            <Feed urlNum={2}/>
+                            { me.id !== -1 ? <RightSidebar/> : "" }
                         </div>
                     </main>
                 </div>

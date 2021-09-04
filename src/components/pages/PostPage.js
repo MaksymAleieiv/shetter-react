@@ -1,5 +1,5 @@
 import { useParams } from 'react-router';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 import GetMe from '../functions/GetMe';
 import PostsLoader from '../functions/PostsLoader';
@@ -10,24 +10,21 @@ import RightSidebar from '../pageComponents/RightSidebar';
 import Post from '../pageComponents/Post';
 import CommentsPart from '../pageComponents/postComponents/CommentsPart';
 import CreatePostForm from '../pageComponents/postComponents/CreatePostForm';
-import Overlay from '../pageComponents/Overlay';
+import { useSelector } from 'react-redux';
 
 function PostPage() {
-
-    const {me} = GetMe();
-
+    useEffect(() => {
+        window.scroll(0,0)
+    }, [])
+    GetMe();
+    const me = useSelector(state => state.me.me);
+    const overlay = useSelector(state => state.overlay)
+    const post = useSelector(state => state.posts.posts)
     const { post_id } = useParams();
-    const [overlayVisibility, setOverlayVisibility] = useState(false);
-    const [overlayImage, setOverlayImage] = useState({});
-    const [overlayImages, setOverlayImages] = useState([]);
     document.title = "Single Post";
     
-    const setOverlayImagesFromChild = (c) => setOverlayImages(c)
-    const setOverlayImageFromChild = (c) => setOverlayImage(c)
-    const setOverlayVisibilityFromChild = (c) => setOverlayVisibility(c)
 
-    const { Data } = PostsLoader(post_id, 6)
-
+    const {loading, error, hasMore} = PostsLoader(post_id, 6)
     const [postWarningColor, setColor] = useState(0);
     const setColorFromChild = (c) => setColor(c)
     const colorFunc = (c) => {
@@ -39,39 +36,38 @@ function PostPage() {
             default : return "post"
         }
     }
-    
+    const showText = () => {
+        if(loading) return "Loading..."
+        if(error) return "An error occured. Possible reasons: You've logged in from another device, servers might've gone down. Try logging out and logging back in."
+        if(post.length === 0) return "Something went wrong"
+    } 
     return (
-        <>
-                
-                <Overlay setOverlayVisibility={setOverlayVisibilityFromChild} setOverlayImage={setOverlayImageFromChild} setOverlayImages={setOverlayImagesFromChild}
-                overlayVisibility={overlayVisibility} overlayImage={overlayImage} overlayImages={overlayImages}/>
-                <div id="pageWrapper__Overlay" className={!overlayVisibility ? "" : "fixed"}>
-                    <Header me={me}/>
-                    <main>
-                        <div id="main">
-                            <LeftSidebar me={me}/>
-                                <div id="feed" className="feed_subscriptions">
-                                    {Data !== 1 ? <>
-                                        {Array.from(Data).map(post => (
-                                            <div key={"p"+post.id}>  
-                                                <div>
-                                                    <Post  post={post} isPost={true} me={me} setOverlayImage={setOverlayImageFromChild} setOverlayVisibility={setOverlayVisibilityFromChild}
-                                                    setOverlayImages={setOverlayImagesFromChild}/>
-                                                </div>
-                                                    {me ? <div className={colorFunc(postWarningColor)}>
-                                                        <CreatePostForm me={me} post={false} parentID={''} postID={post_id} setOverlayImage={setOverlayImageFromChild} setOverlayVisibility={setOverlayVisibilityFromChild}
-                                                        setOverlayImages={setOverlayImagesFromChild} setColor={setColorFromChild}/>
-                                                    </div>
-                                                    :""}
-                                                <CommentsPart isPost={true} me={me} setOverlayImage={setOverlayImageFromChild} setOverlayVisibility={setOverlayVisibilityFromChild} setOverlayImages={setOverlayImagesFromChild}/>
+        <>              
+            <div id="pageWrapper__Overlay" className={!overlay.overlayVisibility ? "" : "fixed"} style={!overlay.overlayVisibility ? {} : { top: -window.pageYOffset }}>
+                <Header/>
+                <main>
+                    <div id="main">
+                        <LeftSidebar/>
+                            <div id="feed" className="feed_subscriptions">
+                                {showText()}
+                                {post.id >= 0 ? <>
+                                        <div key={"p"+post.id}>  
+                                            <div>
+                                                <Post post={post} isPost={true} me={me} />
                                             </div>
-                                        ))}
-                                    </> : <div>Something went wrong</div>} 
-                                </div>
-                            {me ? <RightSidebar /> : ""}
-                        </div>
-                    </main>
-                </div>
+                                            {me.id !== -1 ? 
+                                                <div className={colorFunc(postWarningColor)}>
+                                                    <CreatePostForm me={me} post={false} parentID={''} postID={post_id} setColor={setColorFromChild}/>
+                                                </div>
+                                            : ""}
+                                            <CommentsPart isPost={true} me={me}/>
+                                        </div>
+                                </> : ""} 
+                            </div>
+                        {me.id !== -1 ? <RightSidebar /> : ""}
+                    </div>
+                </main>
+            </div>
         </>
     )
 }

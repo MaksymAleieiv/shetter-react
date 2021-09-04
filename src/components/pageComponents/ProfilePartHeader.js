@@ -2,8 +2,10 @@
 import { Link } from 'react-router-dom';
 import { useState } from 'react'; 
 import axios from 'axios';
+import { useDispatch } from 'react-redux';
 
 function ProfilePartHeader({me}) {
+    const dispatch = useDispatch();
     const access = window.localStorage.getItem("access");
     if(access) axios.defaults.headers.common['Authorization'] = "Bearer " + access;
 
@@ -20,18 +22,16 @@ function ProfilePartHeader({me}) {
         .then(() => {
             window.localStorage.removeItem('access')
             window.localStorage.removeItem('refresh')
-            sessionStorage.removeItem('me');
-            document.location = "/";
+            dispatch({type : "CLEAR_ME"})
         })
         .catch(() => {
             window.localStorage.removeItem('access')
             window.localStorage.removeItem('refresh')
-            sessionStorage.removeItem('me');
-            document.location = "/";
+            dispatch({type : "CLEAR_ME"})
         })
     }
 
-    return (me.id !== undefined ? 
+    return (me.id !== -1 ? 
               <li id="myProfile">
                   <div>
                       <Link to={"/user/" + me.username}>
@@ -63,7 +63,7 @@ function ProfilePartHeader({me}) {
               <li>
                   <Link to="/registration"><button id="signup" onClick={() => window.localStorage.removeItem('token')}>Sign Up</button></Link>
               </li>
-      )
+    )
 }
 
 export default ProfilePartHeader

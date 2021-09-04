@@ -1,7 +1,9 @@
 import axios from "axios";
 import { useState } from 'react'
+import { useDispatch } from 'react-redux'
 
 function PostSettings({username, myUsername, id, setDeleted, setBeingRedacted, post, userProfileSettings, setSettingVisibility, setColor}) {
+    const dispatch = useDispatch()
     const access = window.localStorage.getItem("access");
     if(access) axios.defaults.headers.common['Authorization'] = "Bearer " + access;
 
@@ -17,11 +19,12 @@ function PostSettings({username, myUsername, id, setDeleted, setBeingRedacted, p
             url :  post ? '/api/v1/posts/' + id : '/api/v1/comments/' + id
         })
         .then(() => {
+            dispatch({type : "DELETE_POST", payload : id})
             if(document.title === "Single Post")
                 document.location = "/"
             setDeleted(true)
         })
-        .catch()
+        .catch(e => {})
     }
    
     return (

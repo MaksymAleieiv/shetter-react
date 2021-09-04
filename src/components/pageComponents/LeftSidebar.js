@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 
-function LeftSidebar({me}) {
+function LeftSidebar() {
 
     return (
         <div id="leftSideBar">
@@ -17,7 +17,6 @@ function LeftSidebar({me}) {
                 </li>
                 <li id="Notifications" className={document.title === "Hotifications" ? "active" : ""}>
                     <Link id="Notifications__inner" to="/notifications">Notifications</Link>
-                    {me['new_notifications'] > 0 ? <span id="NotificationsCounter">{me['new_notifications']}</span> : ""}
                 </li>
             </nav>
         </div>

@@ -1,39 +1,34 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router';
+import { useSelector } from 'react-redux';
 import axios from 'axios';
 
 import Header from '../pageComponents/Header';
 import LeftSidebar from '../pageComponents/LeftSidebar';
 import RightSidebar from '../pageComponents/RightSidebar';
 import Profile from '../pageComponents/Profile';
-import ShetsUserPage from '../pageComponents/feeds/Shets__UserPage';
-import CommentsUserPage from '../pageComponents/feeds/Comments__UserPage';
-import LikedPosts from '../pageComponents/feeds/LikedPostsFeed';
-import LikedComments from '../pageComponents/feeds/LikedCommentsFeed';
 import GetMe from '../functions/GetMe';
-import Overlay from '../pageComponents/Overlay';
+import Feed from '../pageComponents/feeds/Feed';
 
 function UserPage() {
     const access = window.localStorage.getItem("access");
     if(access) axios.defaults.headers.common['Authorization'] = "Bearer " + access;
     const { username } = useParams();
-    const {me} = GetMe();
-    const [overlayVisibility, setOverlayVisibility] = useState(false);
-    const [overlayImage, setOverlayImage] = useState({});
-    const [overlayImages, setOverlayImages] = useState([]);
+    
+    const overlay = useSelector(state => state.overlay);
+    const me = useSelector(state => state.me.me);
+    GetMe();
     document.title = username;
     
     const [shetsVisibility, setShetsVisibility] = useState(0);
     const [shetsLikesVisibility, setShetsLikesVisibility] = useState(true);
 
-    const setOverlayImagesFromChild = (c) => setOverlayImages(c)
-    const setOverlayImageFromChild = (c) => setOverlayImage(c)
-    const setOverlayVisibilityFromChild = (c) => setOverlayVisibility(c)
     const setShetsVisibilityFromChild = (c) => setShetsVisibility(c)
 
     const [usersData, setUsersData] = useState([]);
 
     useEffect(() => {
+        window.scroll(0,0)
         const getUsersData = async () => {
             const userData = await getUser();
             setUsersData(userData.data)
@@ -46,37 +41,53 @@ function UserPage() {
         return user
     }
 
+    const setFeed = () => {
+        if(shetsVisibility === 0) return (
+            <div>
+                <Feed urlNum={1}/>
+            </div>
+        )
+        if(shetsVisibility === 1) return (
+            <div>
+                <Feed urlNum={14}/>
+            </div>
+        )
+        if(shetsVisibility === 2 && shetsLikesVisibility) return (
+            <>
+                <div id="userPageLikes__buttons">
+                    <button onClick={() => setShetsLikesVisibility(true)} className={shetsLikesVisibility ? "active" : ""}>Shets <span className="cf c">{usersData.user_post_likes_count}</span></button>
+                    <button onClick={() => setShetsLikesVisibility(false)} className={!shetsLikesVisibility ? "active" : ""}>Replies <span className="cf c">{usersData.user_comment_likes_count}</span></button>
+                </div>
+                <div>
+                    <Feed urlNum={4}/>
+                </div>
+            </>
+        )
+        if(shetsVisibility === 2 && !shetsLikesVisibility) return (
+            <>
+                <div id="userPageLikes__buttons">
+                    <button onClick={() => setShetsLikesVisibility(true)} className={shetsLikesVisibility ? "active" : ""}>Shets <span className="cf c">{usersData.user_post_likes_count}</span></button>
+                    <button onClick={() => setShetsLikesVisibility(false)} className={!shetsLikesVisibility ? "active" : ""}>Replies <span className="cf c">{usersData.user_comment_likes_count}</span></button>
+                </div>
+                <div>
+                    <Feed urlNum={12}/>
+                </div>
+            </>
+        )
+    }
+
     return (
         <>      
-            <Overlay setOverlayVisibility={setOverlayVisibilityFromChild} setOverlayImage={setOverlayImageFromChild} setOverlayImages={setOverlayImagesFromChild}
-            overlayVisibility={overlayVisibility} overlayImage={overlayImage} overlayImages={overlayImages}/>
-            <div id="pageWrapper__Overlay" className={!overlayVisibility ? "" : "fixed"}>
-                <Header me={me}/>
+            <div id="pageWrapper__Overlay" className={!overlay.overlayVisibility ? "" : "fixed"} style={!overlay.overlayVisibility ? {} : { top: -window.pageYOffset }}>
+                <Header/>
                 <main>
                     <div id="main">
-                        <LeftSidebar me={me}/>
+                        <LeftSidebar/>
                             <div id="feed" className="feed_subscriptions">
-                                <Profile userData={usersData} setShetsVisibility={setShetsVisibilityFromChild} shetsVisibility={shetsVisibility} me={me}/>
-                                <div style={shetsVisibility === 0 ? {} : {display : 'none'}}>
-                                    <ShetsUserPage me={me} setOverlayImage={setOverlayImageFromChild} setOverlayVisibility={setOverlayVisibilityFromChild} setOverlayImages={setOverlayImagesFromChild}/>
-                                </div>
-                                <div style={shetsVisibility === 1 ? {} : {display : 'none'}}>
-                                    <CommentsUserPage me={me} setOverlayImage={setOverlayImageFromChild} setOverlayVisibility={setOverlayVisibilityFromChild} setOverlayImages={setOverlayImagesFromChild}/>
-                                </div>
-                                <div style={shetsVisibility === 2 ? {} : {display : 'none'}}>
-                                    <div id="userPageLikes__buttons">
-                                        <button onClick={() => setShetsLikesVisibility(p => !p)} className={shetsLikesVisibility ? "active" : ""}>Shets <span className="cf c">{usersData.user_post_likes_count}</span></button>
-                                        <button onClick={() => setShetsLikesVisibility(p => !p)} className={!shetsLikesVisibility ? "active" : ""}>Replies <span className="cf c">{usersData.user_comment_likes_count}</span></button>
-                                    </div>
-                                    <div style={shetsLikesVisibility ? {} : {display : 'none'}}>
-                                        <LikedPosts me={me} setOverlayImage={setOverlayImageFromChild} setOverlayVisibility={setOverlayVisibilityFromChild} setOverlayImages={setOverlayImagesFromChild}/>
-                                    </div>
-                                    <div style={!shetsLikesVisibility ? {} : {display : 'none'}}>
-                                        <LikedComments me={me} setOverlayImage={setOverlayImageFromChild} setOverlayVisibility={setOverlayVisibilityFromChild} setOverlayImages={setOverlayImagesFromChild}/>
-                                    </div>
-                                </div>
+                                <Profile userData={usersData} setShetsVisibility={setShetsVisibilityFromChild} shetsVisibility={shetsVisibility}/>
+                               {setFeed()}
                             </div>
-                        {me ? <RightSidebar /> : ""}
+                        { me.id !== -1 ? <RightSidebar /> : "" }
                     </div>
                 </main>
             </div>

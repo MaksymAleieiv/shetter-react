@@ -2,7 +2,6 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-size: 14px;
     font-family: 'Source Sans Pro';
     font-weight: 400;
     color: #242426;
@@ -32,6 +31,7 @@ body{
 
 main{
     width: 100%;
+    margin-top: 48px;
 }
 
 li{
@@ -70,6 +70,7 @@ a{
 
 .settings{
     height: 712px;
+    width: 100%;
 }
 
 .post.error,
@@ -85,6 +86,7 @@ a{
 @keyframes blinkCopy { 0%{ background:skyblue; } 100%{ background:white; } }
 .post{   
     cursor: pointer;
+    width: 100%;
 }
 
 #pageWrapper__Overlay.fixed{
@@ -95,7 +97,6 @@ a{
 
 #main{
     display: flex;
-    width: 1024px;
     height: inherit;
     margin-left: calc(50% - 512px);
     margin-top: 16px;
@@ -105,6 +106,7 @@ a{
 #leftSideBar{
     width: 192px;
     height: 142px;
+    margin-right: 16px;
 }
 
 #leftSideBar nav > li{

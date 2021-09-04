@@ -3,10 +3,12 @@ import Post from '../Post';
 import { useState, useCallback, useRef } from 'react';
 import PostsLoader from '../../functions/PostsLoader';
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 function CommentsPart({setOverlayImage, setOverlayVisibility, me, isPost}) {
     const [startPos, setStartPos] = useState(0);
-    const {loading, error, Data, hasMore} = PostsLoader(startPos, isPost ? 3 : 9);
+    const {loading, error, hasMore} = PostsLoader(startPos, isPost ? 3 : 9);
+    const comments = useSelector(state => state.posts.comments)
 
     const observer = useRef();
     const tenthPost = useCallback(node => {
@@ -19,11 +21,16 @@ function CommentsPart({setOverlayImage, setOverlayVisibility, me, isPost}) {
         })
         if(node) observer.current.observe(node)
     }, [loading, hasMore])
+    const showText = () => {
+        if(loading) return "Loading..."
+        if(error) return "An error occured. Possible reasons: You've logged in from another device, servers might've gone down. Try logging out and logging back in."
+        if(comments.length === 0) return "This post has no comments"
+    } 
 
     return (
         <>
-            {error ? <div>An error occured. Possible reasons: You've logged in from another device, servers might've gone down. Try logging out and logging back in.</div> : ""}
-            {Data.map(comment => 
+            {showText()}
+            {Array.from(comments).map(comment => 
                 <div key={"c"+comment.id} className="commentToPost post" id={"comment_" + comment.id} ref={tenthPost} >
                     <Link key={comment.id} to={"/comment/" + comment.id}>
                         <Post post={comment} isPost={false} parentID={comment.post} me={me} setOverlayImage={setOverlayImage} setOverlayVisibility={setOverlayVisibility} />

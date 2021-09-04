@@ -1,5 +1,5 @@
 .RegLogFor{ 
-    position: absolute;
+    position: fixed;
     width:100%;
     z-index: 3;
     background: #FAF9FF;
@@ -67,14 +67,14 @@
 }
 
 #goBack{
-    background: #FAF9FF;
+    background: transparent;
     border: none;
     cursor: pointer;
     width: 130px;
     height: 64px;
     position: absolute;
     z-index: 10;
-    top: 0;
+    top: 8px;
     left: 448px;
     font-weight: 600;
     font-size: 18px;
@@ -92,11 +92,11 @@
 }
 
 .form{
-    width: 390px;
+    width: 384px;
     height: 500px;
     color: rgba(36, 36, 38, 0.75);
     font-weight: 600;
-    margin: 192px auto;
+    margin: auto;
     position: relative;
 }
 
