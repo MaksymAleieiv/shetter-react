@@ -2,21 +2,25 @@ import Header from '../pageComponents/Header';
 import LeftSidebar from '../pageComponents/LeftSidebar';
 import RightSidebar from '../pageComponents/RightSidebar';
 import Feed from '../pageComponents/feeds/Feed';
+import { useEffect } from 'react';
 
-import GetMe from '../functions/GetMe';
-import { useSelector } from 'react-redux'
+import { getMe } from '../../store/getMeAction';
+import { useSelector, useDispatch } from 'react-redux'
 
 function Subscribtions() {
-    document.title = "Subscriptions"
+    const dispatch = useDispatch()
+    useEffect(() => {
+        dispatch( getMe() )
+    }, [])
+    document.title = 'Subscriptions'
     const me = useSelector(state => state.me.me);
     const overlay = useSelector(state => state.overlay);
-    GetMe();
     return (me.id !== -1 ?
         <>
-            <div id="pageWrapper__Overlay" className={!overlay.overlayVisibility ? "" : "fixed"} style={!overlay.overlayVisibility ? {} : { top: -window.pageYOffset }}>
+            <div id='pageWrapper__Overlay' className={!overlay.overlayVisibility ? '' : 'fixed'} style={!overlay.overlayVisibility ? {} : { top: -window.pageYOffset }}>
                 <Header/>
                 <main>
-                    <div id="main">
+                    <div id='main'>
                         <LeftSidebar/>
                         <Feed urlNum={11} />                        
                         <RightSidebar />
@@ -25,7 +29,7 @@ function Subscribtions() {
             </div>
         </>
         :
-        "Register to get access to this section"
+        'Register to get access to this section'
     )
 }
 

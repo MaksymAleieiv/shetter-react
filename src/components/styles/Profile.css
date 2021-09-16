@@ -69,13 +69,29 @@
     width:188px;
 }
 
-.settingsForThisUser > button{
+.settingsForThisUser > button,
+.settingsForThisUser > a{
     min-width: 32px;
     min-height: 32px;
     margin-right: 12px;
     cursor: pointer;
     position: absolute;
     top: 0;
+}
+
+.goToSettings{
+    border: none;
+    background-color: transparent;
+    left: -44px;
+}
+
+.goToSettings > i {
+    background: url(../images/Edit.svg) center / contain no-repeat;
+    width: 15px;
+    height: 15px;
+    margin-left: 9px;
+    display: block;
+    margin-top: 8px;
 }
 
 .userSettingsButton{
