@@ -15,8 +15,6 @@ function UserPage() {
     useEffect(() => {
         dispatch( getMe() )
     }, [])
-    const access = window.localStorage.getItem('access');
-    if(access) axios.defaults.headers.common['Authorization'] = 'Bearer ' + access;
     const { username } = useParams();
     
     const overlay = useSelector(state => state.overlay);

@@ -89,7 +89,6 @@ function Feed({urlNum}) {
             : ''}
             {urlNum === 2 ? <NewPostsButton lastID={posts[0]}/> : ''}
             <div id='posts'>
-                {showText()}
                 {Array.from(posts).map((post, index) => (
                     <Link key={'l' + post.id} to={post.parent === undefined ? '/post/' + post.id : '/comment/' + post.id }>
                         {index === posts.length - 6 ?
@@ -103,6 +102,7 @@ function Feed({urlNum}) {
                     }
                     </Link>
                 ))}
+                {showText()}
             </div>
 
         </div>

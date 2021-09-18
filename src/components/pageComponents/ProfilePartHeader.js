@@ -9,8 +9,6 @@ import errorImgPNG from '../images/errorImg.png'
 function ProfilePartHeader({me}) {
     console.log('profile part header rerendered')
     const dispatch = useDispatch();
-    const access = window.localStorage.getItem('access');
-    if(access) axios.defaults.headers.common['Authorization'] = 'Bearer ' + access;
 
     const [dropDownVisible, setDropDownVisible] = useState(false);
 
@@ -26,7 +24,6 @@ function ProfilePartHeader({me}) {
             window.localStorage.removeItem('access')
             window.localStorage.removeItem('refresh')
             dispatch( clearMe_Action() )
-
         })
     }
 

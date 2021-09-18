@@ -19,6 +19,8 @@ function App() {
   axios.defaults.baseURL = 'https://fierce-dusk-92502.herokuapp.com';
   axios.interceptors.request.use(
         config => {
+          const access = window.localStorage.getItem('access');
+          if(access) config.headers.Authorization = 'Bearer ' + access;
           console.log('req', config)
             return config;
         },
@@ -31,9 +33,9 @@ function App() {
       return response
     }, error => {
       if(window.localStorage.getItem('refresh')){
-        console.log(error)
+        //console.log('err', error.response)
         const originalRequest = error.config;
-        if (error.response.status >= 400 && error.response.status < 500 && !originalRequest._retry) {
+        if (error.response && error.response.status >= 400 && error.response.status < 500 && !originalRequest._retry) {
             originalRequest._retry = true;
             return axios.post('/token/refresh/',
               {

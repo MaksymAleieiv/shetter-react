@@ -10,8 +10,6 @@ import errorImgPNG from '../../images/errorImg.png'
 
 function CreatePostForm({idRed, beingRedacted, setBeingRedacted, content, imagesRed, me, post, postID, parentID, setColor, setPost, lastPostID}) {
     const dispatch = useDispatch()
-    const access = window.localStorage.getItem('access');
-    if(access) axios.defaults.headers.common['Authorization'] = 'Bearer ' + access;
     const [postWarning, setPostWarning] = useState('');
     const smiles = ['🔥', '🤡', '💩', '✋', '👍', '🤜', '🤛', '👏', '👀', '🗿', '🚬'];
 
@@ -137,7 +135,7 @@ function CreatePostForm({idRed, beingRedacted, setBeingRedacted, content, images
         const res = JSON.parse(err.request.response);
         console.log(res);
         setColor(1)
-        if(res.detail === 'Post must contain 'content' field' || res.detail === 'No 'content' field or no POST request'){
+        if(res.detail === 'Post must contain \'content\' field' || res.detail === 'No \'content\' field or no POST request'){
             post ? setPostWarning('Post must have a content') : setPostWarning('Comment must have a content');
             return;
         }
@@ -171,7 +169,7 @@ function CreatePostForm({idRed, beingRedacted, setBeingRedacted, content, images
                                     </span><span className='tag'>@{me.username}</span>
                                 </div>
                                 <div className='postContent'>
-                                    <textarea className='newPostInput' placeholder='What's up ?' value={newPostContent} onChange={val => {setNewPostContent(val.target.value); setPostWarning('')}} onClick={e => {e.stopPropagation(); e.preventDefault();}} maxLength={post ? '400' : '200'} />             
+                                    <textarea className='newPostInput' placeholder="What's up ?" value={newPostContent} onChange={val => {setNewPostContent(val.target.value); setPostWarning('')}} onClick={e => {e.stopPropagation(); e.preventDefault();}} maxLength={post ? '400' : '200'} />             
                                     <button className='smileButton' onClick={e => {e.stopPropagation(); e.preventDefault(); closeSmileListener(); setSmile(p => !p)}}></button>
                                 </div>
                                 {post ? 

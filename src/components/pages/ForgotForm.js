@@ -7,7 +7,7 @@ function ForgotForm() {
     const [email, setEmail] = useState('');
     const [badEmail, setBadEmail] = useState(false);
     document.title = 'Renew Password';
-    if(window.localStorage.getItem('token') && window.sessionStorage.getItem('me')) document.location = '/'
+    if(window.localStorage.getItem('refresh')) document.location = '/'
     function forgot(){
         
         if(email) {

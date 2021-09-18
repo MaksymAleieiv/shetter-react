@@ -6,8 +6,6 @@ import { rewriteComments_Action, addComments_Action, rewritePosts_Action, addPos
 
 export default function PostsLoader(startPos, page, setStartPos = null, Username = null) {
     const dispatch = useDispatch()
-    const access = window.localStorage.getItem('access');
-    if(access) axios.defaults.headers.common['Authorization'] = 'Bearer ' + access;
     const { username } = useParams();
     const { comment_id } = useParams()
     const [prevUser, setPrevUser] = useState('');

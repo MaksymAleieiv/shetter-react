@@ -5,8 +5,6 @@ import { deleteComment_Action, deletePost_Action } from '../../../store/postRedu
 
 function PostSettings({username, myUsername, id, setDeleted, setBeingRedacted, post, userProfileSettings, setSettingVisibility, setColor}) {
     const dispatch = useDispatch()
-    const access = window.localStorage.getItem('access');
-    if(access) axios.defaults.headers.common['Authorization'] = 'Bearer ' + access;
 
     const [removeConfirm, setConfirm] = useState(false);
 

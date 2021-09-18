@@ -22,8 +22,6 @@ function SettingsFeed() {
             setProfilePhotoBlob(me.profile_photo)
         }
     }, [me])
-    const access = window.localStorage.getItem('access');
-    if(access) axios.defaults.headers.common['Authorization'] = 'Bearer ' + access;
     const getMeData = async () => {
         const Me = await getMe();
         if(Me !== ''){

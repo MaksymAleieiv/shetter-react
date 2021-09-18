@@ -5,8 +5,6 @@ function LBRButtons({id, myUsername, isBookmarked, isLiked, likesCount, isPost, 
     const [likes, setLikes] = useState(likesCount);
     const [isLikedT, setIsLikedT] = useState(isLiked);
     const [isBookmarkedT, setIsBookmarkedT] = useState(isBookmarked);
-    const access = window.localStorage.getItem('access');
-    if(access) axios.defaults.headers.common['Authorization'] = 'Bearer ' + access;
 
     const like = (id) => {
         if(myUsername){

@@ -116,7 +116,7 @@ const Post = memo(({post, isPost, me}) => {
     return (
         <>
             <div className={colorFunc(postWarningColor)} id={'post_' + id} style={selected ? {background: 'lightblue'} : {background: 'white'}} 
-            onClick={e => {if(Date.now() - initPress.current > 150){e.preventDefault();e.stopPropagation();}}}
+            onClick={e => {if(Date.now() - initPress.current > 150){e.preventDefault(); e.stopPropagation();}}}
             onMouseDown={() => initPress.current = Date.now()} onMouseUp={() => onLongPress()}>
                 {beingRedacted ? 
                     <>
@@ -161,7 +161,7 @@ const Post = memo(({post, isPost, me}) => {
                                         <LBRButtons id={id} isBookmarked={isBookmarked} isPost={isPost} myUsername={me ? me.username : ''} button={1}/>
                                     </div>
                             </div>
-                            <button className='postSettingsButton' onClick={e => {e.stopPropagation(); e.preventDefault(); setSettingVisibility(p => !p)}}>···</button>
+                            <button className='postSettingsButton' onClick={e => {e.preventDefault(); e.stopPropagation(); setSettingVisibility(p => !p)}}>···</button>
                         </div>
                         {settingVisibility ? 
                             <PostSettings post={isPost} myUsername={me.username} userProfileSettings={false} username={authorUsername} id={id}
