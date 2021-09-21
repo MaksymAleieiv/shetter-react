@@ -7,7 +7,8 @@ import { rewriteComments_Action, addComments_Action, rewritePosts_Action, addPos
 export default function PostsLoader(startPos, page, setStartPos = null, Username = null) {
     const dispatch = useDispatch()
     const { username } = useParams();
-    const { comment_id } = useParams()
+    const { comment_id } = useParams();
+    const [prevCom, setPrevCom] = useState(0);
     const [prevUser, setPrevUser] = useState('');
     const { post_id } = useParams();
     const [loading, setLoading] = useState(true);
@@ -53,7 +54,7 @@ export default function PostsLoader(startPos, page, setStartPos = null, Username
                 ]
             }
             if(page === 3 || page === 9){
-                if(Username !== null && prevUser !== '' && prevUser !== username){
+                if((Username !== null && prevUser !== '' && prevUser !== username) || (page === 9 && prevCom !== comment_id)){
                     setStartPos(0);
                     dispatch( rewriteComments_Action(res.data) )
                 }else 
@@ -68,6 +69,7 @@ export default function PostsLoader(startPos, page, setStartPos = null, Username
             }
             else if(page === 10) dispatch( addPosts_Action(f([...res.data], i => i.id)) )
             else dispatch( addPosts_Action(res.data))
+            setPrevCom( comment_id ? 0 : comment_id)
             setPrevPage(page)
             setHasMore(res.data.length === 15)
             setPrevUser(username)

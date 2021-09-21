@@ -155,7 +155,7 @@ function CreatePostForm({idRed, beingRedacted, setBeingRedacted, content, images
     }
     return (
             <>
-                {me.id !== undefined ? 
+                {me.id !== -1 && 
                     <>
                         {beingRedacted ? keyListenerCP() : null}
                         <div className='postInner'>
@@ -172,7 +172,7 @@ function CreatePostForm({idRed, beingRedacted, setBeingRedacted, content, images
                                     <textarea className='newPostInput' placeholder="What's up ?" value={newPostContent} onChange={val => {setNewPostContent(val.target.value); setPostWarning('')}} onClick={e => {e.stopPropagation(); e.preventDefault();}} maxLength={post ? '400' : '200'} />             
                                     <button className='smileButton' onClick={e => {e.stopPropagation(); e.preventDefault(); closeSmileListener(); setSmile(p => !p)}}></button>
                                 </div>
-                                {post ? 
+                                {post && 
                                     <div className={'postImages n_'+imagesBlob.length}>
                                         {imagesBlob.map((image, index) => (                                        
                                             <div key={index} className={'newPostImage n_' + imagesBlob.length} style={{backgroundImage: `url(${image.image ? image.image : image})`}}
@@ -194,17 +194,17 @@ function CreatePostForm({idRed, beingRedacted, setBeingRedacted, content, images
                                             </div>))
                                         }
                                     </div>
-                                : ''}                               
+                                }                               
                             </div>
                         </div>
                         <div className='newPostSettings'>
-                            {post ? 
+                            {post && 
                                 <label onClick={e => {e.stopPropagation();}}>
                                     <label className='addImageLabel' onClick={e => {e.stopPropagation();}}>
                                         <input accept='image/jpg, image/jpeg, image/png' type='file' className='addImageInput' onClick={(event) => event.target.value = null} onChange={handleInput} multiple /> 
                                     </label>
                                 </label>
-                            : ''}
+                            }
                             <div>
                                 <span style={{color : 'red'}}>{postWarning}</span>
                             </div>
@@ -214,13 +214,13 @@ function CreatePostForm({idRed, beingRedacted, setBeingRedacted, content, images
                                 <button className='newPostButton' onClick={e => {e.stopPropagation(); e.preventDefault(); editPost(idRed)}}>Shet</button>
                             </> :  <button className='newPostButton' onClick={createPost}>Shet</button>}
                         </div>
-                        {smile ? <div className='smilesHolder'>{}
+                        {smile && <div className='smilesHolder'>{}
                             {smiles.map(emoji => 
                                 <button key={emoji} onClick={e => {e.stopPropagation(); e.preventDefault(); setNewPostContent(p => p + emoji)}}>{emoji}</button>
                             )}
-                        </div> : ''}
+                        </div>}
                     </>
-                : ''}
+                }
             </>
     )
 }

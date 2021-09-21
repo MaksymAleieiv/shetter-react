@@ -7,7 +7,8 @@ import { useSelector } from 'react-redux';
 
 function CommentsPart({setOverlayImage, setOverlayVisibility, me, isPost}) {
     const [startPos, setStartPos] = useState(0);
-    const {loading, error, hasMore} = PostsLoader(startPos, isPost ? 3 : 9);
+    const setStartPosFromChild = (c) => setStartPos(c);
+    const {loading, error, hasMore} = PostsLoader(startPos, isPost ? 3 : 9, setStartPosFromChild);
     const comments = useSelector(state => state.posts.comments)
     console.log('comments', comments[0])
     const observer = useRef();

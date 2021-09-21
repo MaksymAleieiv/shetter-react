@@ -4,6 +4,7 @@ import axios from 'axios';
 import FastAverageColor from 'fast-average-color'
 import { useDispatch, useSelector } from 'react-redux'
 import errorImgPNG from '../../images/errorImg.png'
+import { changeMe_Action } from '../../../store/meReducer';
 
 function SettingsFeed() {
     const dispatch = useDispatch()
@@ -23,25 +24,11 @@ function SettingsFeed() {
         }
     }, [me])
     const getMeData = async () => {
-        const Me = await getMe();
-        if(Me !== ''){
-            dispatch({type : 'CHANGE_DATA', payload : Me.data})
-        }
-    }
-    const getMe = async () => {
-        try{
-            const res = await axios.get('/auth/users/me',{});
-            const me = await res;
-            return me;
-        }catch(err){
-            if(JSON.parse(err.request.response).detail === 'Given token not valid for any token type'){
-                window.localStorage.removeItem('access');
-                window.localStorage.removeItem('refresh');
-                dispatch({type : 'CLEAR_ME'})
-                document.location.reload()
-                return ''
-            }
-        }
+        axios.get('/auth/users/me')
+        .then(res => {
+            dispatch(changeMe_Action(res.data))
+        })
+        .catch(err => {});
     }
     
     const changeSettings = () => {
@@ -98,7 +85,7 @@ function SettingsFeed() {
     }
     const [postWarningColor, setColor] = useState(0);
     const colorFunc = (c) => {
-        if(postWarningColor !== 0)setTimeout(() => setColor(0), 500)
+        if(postWarningColor !== 0) setTimeout(() => setColor(0), 500)
         switch(c){
             case 0 : return 'settings'
             case 1 : return 'settings error'
@@ -106,15 +93,15 @@ function SettingsFeed() {
             default : return 'settings'
         }
     }
-
+// <button className='changeBackgroundPhoto'></button>
     return (
         <div id='feed' className='feed_subscriptions'>
             {getAverageRGB(profilePhotoBlob)}
             <div className={colorFunc(postWarningColor)}>
                 <div className='settingsTitle'>Settings</div>
-                <div className='userBackground settings' style={{backgroundColor : averageColor}}><button className='changeBackgroundPhoto'></button></div>
+                <div className='userBackground settings' style={{backgroundColor : averageColor}}></div> 
                 <div className='userAvatar settings'>
-                    <img src={ profilePhotoBlob } onError={(e)=>{e.target.onerror = null; e.target.src=errorImgPNG}} alt='avatar' />
+                    <img src={ profilePhotoBlob } onError={(e)=>{e.target.onerror = null; e.target.src=errorImgPNG}} alt='' />
                     <label className='changeProfilePhoto'>
                         <input accept='image/jpg, image/jpeg, image/png' type='file' className='addImageInput'
                         onClick={(event) => event.target.value = null} onChange={handleInput} /> 

@@ -5,13 +5,11 @@ import { Form, Field } from 'react-final-form'
 import { useState } from 'react';
 
 import Banner from '../pageComponents/EngageBanner';
-import { useHistory } from 'react-router';
 
 import GoogleLogin from 'react-google-login';
 import ReglogGoogle from '../functions/ReglogGoogle';
 
 function RegistrationForm() {
-    const history = useHistory();
 
     const [usernameErrorText, setUsernameErrorText] = useState('');
     const [emailErrorText, setEmailErrorText] = useState('');
@@ -19,8 +17,6 @@ function RegistrationForm() {
     const [generalErrorText, setGeneralErrorText] = useState('');
     const setGenTextFromChild = (c) => setGeneralErrorText(c);
     document.title = 'Registration';
-    if(window.localStorage.getItem('access')) document.location = '/'
-
 
     const registration = (values) => {
         setEmailErrorText('');
@@ -66,83 +62,78 @@ function RegistrationForm() {
     }
     return (
             <div className='RegLogFor' style={{height : '100%'}}>
-                {!window.sessionStorage.getItem('me') ?
-                    <>       
-                        <Banner />
-                        <Form onSubmit={registration}>
-                            {({handleSubmit}) => (
-                                <form className='form' onSubmit={handleSubmit}>
+                <Banner />
+                <Form onSubmit={registration}>
+                    {({handleSubmit}) => (
+                        <form className='form' onSubmit={handleSubmit}>
 
-                                    <div className='idk__rlForm'>
-                                        <h3>Sign up to Shetter</h3>
-                                        <div className='idk__buttons'>                                          
-                                            <GoogleLogin
-                                                clientId='283989207573-odnlpid41e0jmbv28ncl2ojdetf3t2m8.apps.googleusercontent.com'
-                                                onSuccess={loginGoogle}
-                                                buttonText='            Sign up with Google'
-                                                cookiePolicy={'none'}
-                                                className='idk__buttons__google'
-                                            />
-                                        </div>
-                                        <div className='idk__orShit'>
-                                            <div className='idk__line'></div>
-                                            <span>Or</span>
-                                            <div className='idk__line'></div>
-                                        </div>
-                                    </div>
+                            <div className='idk__rlForm'>
+                                <h3>Sign up to Shetter</h3>
+                                <div className='idk__buttons'>                                          
+                                    <GoogleLogin
+                                        clientId='283989207573-odnlpid41e0jmbv28ncl2ojdetf3t2m8.apps.googleusercontent.com'
+                                        onSuccess={loginGoogle}
+                                        buttonText='            Sign up with Google'
+                                        cookiePolicy={'none'}
+                                        className='idk__buttons__google'
+                                    />
+                                </div>
+                                <div className='idk__orShit'>
+                                    <div className='idk__line'></div>
+                                    <span>Or</span>
+                                    <div className='idk__line'></div>
+                                </div>
+                            </div>
 
-                                    <Field name='Email'>
-                                        {({input}) => (
-                                            <div>
-                                                <label>Your Email</label><br />
-                                                <input {...input} type='email' className={emailErrorText !== '' ? 'longInput formInput formErrorInput' : 'longInput formInput'} onClick={() => setEmailErrorText('')} maxLength='32' /><br />
-                                                {emailErrorText !== '' ? (<div className='formErrorText'>{emailErrorText}</div>) : ''}
-                                            </div>
-                                        )}
-                                    </Field>
-                                    <Field name='Username'>
-                                        {({input}) => (
-                                            <div>
-                                                <label>Username</label><br />
-                                                <input {...input} type='text' className={usernameErrorText !== '' ? 'longInput formInput formErrorInput' : 'longInput formInput'} onClick={() => setUsernameErrorText('')} maxLength='15' /><br />
-                                                {usernameErrorText !== '' ? (<div className='formErrorText'>{usernameErrorText}</div>) : ''}
-                                            </div>
-                                        )}
-                                    </Field>
+                            <Field name='Email'>
+                                {({input}) => (
                                     <div>
-                                        <div style={{display : 'flex'}}>          
-                                            <Field name='Password'>
-                                                {({input}) => (
-                                                    <div>
-                                                        <label>Password</label><br />
-                                                        <input {...input} type='password' className={passwordErrorText !== '' ? 'shortInput formInput formErrorInput' : 'shortInput formInput'} onClick={() => setPasswordErrorText('')} maxLength='32' /><br />
-                                                    </div>
-                                                )}
-                                            </Field>                              
-                                            <Field name='ConfPassword'>
-                                                {({input}) => (
-                                                    <div style={{marginLeft : 20}}>
-                                                        <label>Confirm Password</label><br />
-                                                        <input {...input} type='password' className={passwordErrorText !== '' ? 'shortInput formInput formErrorInput' : 'shortInput formInput'} onClick={() => setPasswordErrorText('')} maxLength='32' /><br />
-                                                    </div>
-                                                )}
-                                            </Field>                               
-                                        </div>    
-                                        {passwordErrorText !== '' ? (<div className='formErrorText'>{passwordErrorText}</div>) : ''}
-                                        {generalErrorText !== '' ? (<div className='formErrorText'>{generalErrorText}</div>) : ''}
+                                        <label>Your Email</label><br />
+                                        <input {...input} type='email' className={emailErrorText !== '' ? 'longInput formInput formErrorInput' : 'longInput formInput'} onClick={() => setEmailErrorText('')} maxLength='32' /><br />
+                                        {emailErrorText !== '' && <div className='formErrorText'>{emailErrorText}</div>}
                                     </div>
-                                    <button className='submit' type='submit'>Create Account</button>
-                                </form>
-                            )}
-                        </Form>
-                        <button id='goBack' onClick={() => history.goBack()}>{b}</button>
-                        <div id='loginAskHolder'>
-                            Already have an account? 
-                            <Link to='/login' className='f5Text'>Log In</Link>
-                        </div>
-                    </>
-                    : 
-                    <div className='form' style={{textAlign : 'center'}}>Why did you come here ? <br />You thought something would be here while you're logпed on ? Pathetic !<br /> </div>}
+                                )}
+                            </Field>
+                            <Field name='Username'>
+                                {({input}) => (
+                                    <div>
+                                        <label>Username</label><br />
+                                        <input {...input} type='text' className={usernameErrorText !== '' ? 'longInput formInput formErrorInput' : 'longInput formInput'} onClick={() => setUsernameErrorText('')} maxLength='15' /><br />
+                                        {usernameErrorText !== '' && <div className='formErrorText'>{usernameErrorText}</div>}
+                                    </div>
+                                )}
+                            </Field>
+                            <div>
+                                <div style={{display : 'flex'}}>          
+                                    <Field name='Password'>
+                                        {({input}) => (
+                                            <div>
+                                                <label>Password</label><br />
+                                                <input {...input} type='password' className={passwordErrorText !== '' ? 'shortInput formInput formErrorInput' : 'shortInput formInput'} onClick={() => setPasswordErrorText('')} maxLength='32' /><br />
+                                            </div>
+                                        )}
+                                    </Field>                              
+                                    <Field name='ConfPassword'>
+                                        {({input}) => (
+                                            <div style={{marginLeft : 20}}>
+                                                <label>Confirm Password</label><br />
+                                                <input {...input} type='password' className={passwordErrorText !== '' ? 'shortInput formInput formErrorInput' : 'shortInput formInput'} onClick={() => setPasswordErrorText('')} maxLength='32' /><br />
+                                            </div>
+                                        )}
+                                    </Field>                               
+                                </div>    
+                                {passwordErrorText !== '' && <div className='formErrorText'>{passwordErrorText}</div>}
+                                {generalErrorText !== '' && <div className='formErrorText'>{generalErrorText}</div>}
+                            </div>
+                            <button className='submit' type='submit'>Create Account</button>
+                        </form>
+                    )}
+                </Form>
+                <button id='goBack' onClick={() => document.location = '/'}>{b}</button>
+                <div id='loginAskHolder'>
+                    Already have an account? 
+                    <Link to='/login' className='f5Text'>Log In</Link>
+                </div>
             </div>            
     )
 }

@@ -82,12 +82,12 @@ function Feed({urlNum}) {
 
     return (
         <div id='feed' className='feed_subscriptions'>        
-            {me.id !== -1 && document.title === 'Home' ? 
+            {me.id !== -1 && document.title === 'Home' && 
                 <div id='post-create-form' className={postWarningColor === 0 ? 'post' : 'post error'}>
                     <CreatePostForm me={me} post={true} setColor={setColorFromChild} lastPostID={posts[0] !== undefined ? posts[0]['id'] : 0}/> 
                 </div> 
-            : ''}
-            {urlNum === 2 ? <NewPostsButton lastID={posts[0]}/> : ''}
+            }
+            {urlNum === 2 && <NewPostsButton lastID={posts[0]}/>}
             <div id='posts'>
                 {Array.from(posts).map((post, index) => (
                     <Link key={'l' + post.id} to={post.parent === undefined ? '/post/' + post.id : '/comment/' + post.id }>

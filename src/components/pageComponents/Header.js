@@ -63,14 +63,14 @@ function Header() {
                     </label>
                 </li>
                 <li id='newPost'>
-                    {me.id !== -1 ? 
+                    {me.id !== -1 && 
                         <button id='cnpb_s' onClick={openCreateForm}>
                             New Shet
                             <svg width='12' height='12' viewBox='0 0 12 12' fill='none' xmlns='http://www.w3.org/2000/svg'>
                                 <path d='M5.99967 10.6667V6.00004M5.99967 6.00004V1.33337M5.99967 6.00004H10.6663M5.99967 6.00004H1.33301' stroke='#524872' strokeWidth='1.4' strokeLinecap='round'/>
                             </svg>               
                         </button>
-                    : ''}
+                    }
                 </li>
                 <ProfilePartHeader me={me}/>
             </ul>

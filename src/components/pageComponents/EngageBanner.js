@@ -7,13 +7,13 @@ import ManOnPoopSVG from '../images/ManOnPoop.svg';
 function EngageBanner() {
     return (
         <div id='EngageHolder'>
-            <img id='EnagageLogo' src={EngageLogoSVG} alt='img' />
+            <img id='EnagageLogo' src={EngageLogoSVG} alt='' />
             <div id='EngageText'>Engage in the ultimate social shetfest and express your feelings</div>
             <div id='EnagageImgHolder'>
-                <img id='ThePoop' src={ThePoopManThinksAboutSVG} alt='img' />
-                <img id='Think' src={ManThinksSVG} alt='img' />
-                <img id='EngagePoop' src={PoopPNG} alt='img' />
-                <img id='EngageHumanOnPoop' src={ManOnPoopSVG} alt='img' />
+                <img id='ThePoop' src={ThePoopManThinksAboutSVG} alt='' />
+                <img id='Think' src={ManThinksSVG} alt='' />
+                <img id='EngagePoop' src={PoopPNG} alt='' />
+                <img id='EngageHumanOnPoop' src={ManOnPoopSVG} alt='' />
             </div>
         </div>
     )

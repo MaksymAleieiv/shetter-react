@@ -101,10 +101,10 @@ function Profile({userData, setShetsVisibility, shetsVisibility}) {
                         </div>
                     </div>
                     <div className='profileControlButtons'>
-                        <button onClick={() => setShetsVisibility(0)} className={shetsVisibility === 0 ? 'active' : ''}>Shets <span className='cf c'>{userData.user_posts_count}</span></button>
-                        <button onClick={() => setShetsVisibility(1)} className={shetsVisibility === 1 ? 'active' : ''}>Replies <span className='cf c'>{userData.user_comments_count}</span></button>
-                        <button onClick={() => setShetsVisibility(2)} className={shetsVisibility === 2 ? 'active' : ''}>Likes 
-                            <span className='cf c'>{userData.user_post_likes_count !== undefined ? userData.user_post_likes_count + userData.user_comment_likes_count : ''}</span>
+                        <button onClick={() => setShetsVisibility(0)} className={shetsVisibility === 0 && 'active'}>Shets <span className='cf c'>{userData.user_posts_count}</span></button>
+                        <button onClick={() => setShetsVisibility(1)} className={shetsVisibility === 1 && 'active'}>Replies <span className='cf c'>{userData.user_comments_count}</span></button>
+                        <button onClick={() => setShetsVisibility(2)} className={shetsVisibility === 2 && 'active'}>Likes 
+                            <span className='cf c'>{userData.user_post_likes_count !== undefined && userData.user_post_likes_count + userData.user_comment_likes_count}</span>
                         </button>
                     </div>
                 </div>

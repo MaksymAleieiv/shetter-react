@@ -26,7 +26,7 @@ function ProfilePartHeader({me}) {
             dispatch( clearMe_Action() )
         })
     }
-
+    console.log(me)
     return (me.id !== -1 ? 
               <li id='myProfile'>
                   <div>
@@ -57,7 +57,7 @@ function ProfilePartHeader({me}) {
               </li>
               :
               <li>
-                  <Link to='/registration'><button id='signup' onClick={() => window.localStorage.removeItem('token')}>Sign Up</button></Link>
+                  <Link to='/registration'><button id='signup'>Sign Up</button></Link>
               </li>
     )
 }

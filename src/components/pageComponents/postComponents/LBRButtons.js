@@ -41,8 +41,8 @@ function LBRButtons({id, myUsername, isBookmarked, isLiked, likesCount, isPost, 
     }
     return (
         <>
-            {button === 0 ? <button id={'likeBtn_' + id} className={isLikedT ? 'like_btn active' : 'like_btn'} onClick={e => {e.stopPropagation(); e.preventDefault(); like(id)}}>{likes}</button> : ''}
-            {button === 1 ? <button id={'addToBookmarkBtn_' + id} className={isBookmarkedT ? 'addToBookmark_btn active' : 'addToBookmark_btn'} onClick={e => {e.stopPropagation(); e.preventDefault(); addToBookmarks(id)}}> </button> : ''}
+            {button === 0 && <button id={'likeBtn_' + id} className={isLikedT ? 'like_btn active' : 'like_btn'} onClick={e => {e.stopPropagation(); e.preventDefault(); like(id)}}>{likes}</button>}
+            {button === 1 && <button id={'addToBookmarkBtn_' + id} className={isBookmarkedT ? 'addToBookmark_btn active' : 'addToBookmark_btn'} onClick={e => {e.stopPropagation(); e.preventDefault(); addToBookmarks(id)}}> </button>}
         </>
     )
 }

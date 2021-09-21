@@ -1,9 +1,8 @@
 
 import { useParams } from 'react-router';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
-import { getMe } from '../../store/getMeAction';
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector } from 'react-redux'
 
 import PostsLoader from '../functions/PostsLoader';
 
@@ -15,10 +14,6 @@ import CommentsPart from '../pageComponents/postComponents/CommentsPart';
 import CreatePostForm from '../pageComponents/postComponents/CreatePostForm';
 
 function CommentPage() {
-    const dispatch = useDispatch()
-    useEffect(() => {
-        dispatch( getMe() )
-    }, [])
 
     const me = useSelector(state => state.me.me);
     const overlay = useSelector(state => state.overlay)
@@ -52,16 +47,16 @@ function CommentPage() {
                                         <div>
                                             <Post post={post} isPost={false} me={me}/>
                                         </div>
-                                        {me.id !== -1 ?
+                                        {me.id !== -1 &&
                                             <div className={colorFunc(postWarningColor)}>
                                                 <CreatePostForm me={me} post={false} parentID={post.id} postID={post.post} setColor={setColorFromChild}/>
                                             </div>
-                                        : ''}                                               
+                                        }                                               
                                         <CommentsPart isPost={false} me={me}/>
                                     </div>
                             </> : <div>Something went wrong</div>} 
                         </div>
-                        {me.id !== -1 ? <RightSidebar /> : ''}
+                        {me.id !== -1 && <RightSidebar />}
                     </div>
                 </main>
             </div>

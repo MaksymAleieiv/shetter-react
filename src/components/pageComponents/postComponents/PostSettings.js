@@ -34,7 +34,7 @@ function PostSettings({username, myUsername, id, setDeleted, setBeingRedacted, p
                         <li>
                             <button className='dropDown__listItem copyLink' onClick={e => {e.stopPropagation(); e.preventDefault(); setColor(2); navigator.clipboard.writeText('https://react-shitter.herokuapp.com/user/'+username); setSettingVisibility(false)}}><span>Copy link to profile</span></button>
                         </li>
-                        {myUsername && myUsername !== username ? 
+                        {myUsername && myUsername !== username && 
                             <>
                                 <li>
                                     <button className='dropDown__listItem followUser'><span>Follow @{username}</span></button>
@@ -43,7 +43,7 @@ function PostSettings({username, myUsername, id, setDeleted, setBeingRedacted, p
                                     <button className='dropDown__listItem blockUser'><span>Block @{username}</span></button>
                                 </li>
                             </>
-                        : ''}
+                        }
                     </ul>
                 </div>
             :
@@ -68,7 +68,7 @@ function PostSettings({username, myUsername, id, setDeleted, setBeingRedacted, p
                                             post ? navigator.clipboard.writeText('https://react-shitter.herokuapp.com/post/'+id) : navigator.clipboard.writeText('https://react-shitter.herokuapp.com/comment/'+id)
                                             setSettingVisibility(false)}}><span>Copy link to this Shet</span></button>
                                 </li>
-                                {myUsername && myUsername !== username ? 
+                                {myUsername && myUsername !== username && 
                                     <>
                                         <li>
                                             <button className='dropDown__listItem followUser'><span>Follow @{username}</span></button>
@@ -77,8 +77,8 @@ function PostSettings({username, myUsername, id, setDeleted, setBeingRedacted, p
                                             <button className='dropDown__listItem blockUser'><span>Block @{username}</span></button>
                                         </li>
                                     </>
-                                : ''}
-                                {username === myUsername ? 
+                                }
+                                {username === myUsername && 
                                     <>
                                         <li>
                                             <button className='dropDown__listItem editPost' onClick={e => {e.stopPropagation(); e.preventDefault(); editPost(id)}}><span>Edit this Shet</span></button>
@@ -87,7 +87,7 @@ function PostSettings({username, myUsername, id, setDeleted, setBeingRedacted, p
                                             <button className='dropDown__listItem red removePost' onClick={e => {e.stopPropagation(); e.preventDefault(); setConfirm(true)}}><span className='red'>Delete this Shet</span></button>
                                         </li>
                                     </>
-                                : ''}
+                                }
                             </ul>
                         </div>
                     }

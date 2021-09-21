@@ -3,16 +3,10 @@ import LeftSidebar from '../pageComponents/LeftSidebar';
 import RightSidebar from '../pageComponents/RightSidebar';
 import Feed from '../pageComponents/feeds/Feed';
 
-import { getMe } from '../../store/getMeAction';
-import { useSelector, useDispatch } from 'react-redux'
-import { useEffect } from 'react';
+import { useSelector } from 'react-redux'
 
 
 function Hot() {
-    const dispatch = useDispatch()
-    useEffect(() => {
-        dispatch( getMe() )
-    }, [])
     document.title = 'Hot'
     const overlay = useSelector(state => state.overlay);
 

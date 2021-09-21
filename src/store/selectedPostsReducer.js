@@ -30,9 +30,6 @@ export const selectedPostReducer = (state = defaultState, action) => {
             return {...state, 
             posts : newPos
         }
-        case TOOGLE_SELECTION_MODE : return {...state,
-            selectionMode : action.payload !== null ? action.payload : !state.selectionMode
-        }
         case CLEAR_SELECTED : return {...state,
             posts : [],
             comments : []

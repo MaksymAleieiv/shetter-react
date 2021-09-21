@@ -1,17 +1,12 @@
 import Header from '../pageComponents/Header';
 import LeftSidebar from '../pageComponents/LeftSidebar';
 import RightSidebar from '../pageComponents/RightSidebar';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Feed from '../pageComponents/feeds/Feed';
 
-import { getMe } from '../../store/getMeAction';
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector } from 'react-redux'
 
 function Bookmarks() {
-    const dispatch = useDispatch()
-    useEffect(() => {
-        dispatch( getMe() )
-    }, [])
     document.title = 'Bookmarks'
     const overlay = useSelector(state => state.overlay);
     const me = useSelector(state => state.me.me);
@@ -23,8 +18,8 @@ function Bookmarks() {
         if(shetsBookmarksVisibility) return (
             <>
                 <div id='userPageLikes__buttons'>
-                    <button onClick={() => setShetsBookmarksVisibility(true)} className={shetsBookmarksVisibility ? 'active' : ''}>Shets</button>
-                    <button onClick={() => setShetsBookmarksVisibility(false)} className={!shetsBookmarksVisibility ? 'active' : ''}>Replies</button>
+                    <button onClick={() => setShetsBookmarksVisibility(true)} className={shetsBookmarksVisibility && 'active'}>Shets</button>
+                    <button onClick={() => setShetsBookmarksVisibility(false)} className={!shetsBookmarksVisibility && 'active'}>Replies</button>
                 </div>
                 <div>
                     <Feed urlNum={5}/>
@@ -34,8 +29,8 @@ function Bookmarks() {
         else return (
             <>
                 <div id='userPageLikes__buttons'>
-                    <button onClick={() => setShetsBookmarksVisibility(true)} className={shetsBookmarksVisibility ? 'active' : ''}>Shets</button>
-                    <button onClick={() => setShetsBookmarksVisibility(false)} className={!shetsBookmarksVisibility ? 'active' : ''}>Replies</button>
+                    <button onClick={() => setShetsBookmarksVisibility(true)} className={shetsBookmarksVisibility && 'active'}>Shets</button>
+                    <button onClick={() => setShetsBookmarksVisibility(false)} className={!shetsBookmarksVisibility && 'active'}>Replies</button>
                 </div>
                 <div>
                     <Feed urlNum={13}/>
@@ -43,7 +38,7 @@ function Bookmarks() {
             </>
         )
     }
-    return (me.id !== -1 ?
+    return (
         <>
             <div id='pageWrapper__Overlay' className={!overlay.overlayVisibility ? '' : 'fixed'} style={!overlay.overlayVisibility ? {} : { top: -window.pageYOffset }}>
                 <Header/>
@@ -55,12 +50,11 @@ function Bookmarks() {
                                 {setFeed()}
                             </div>
                         </div>
-                        <RightSidebar />
+                        {me.id !== -1 && <RightSidebar />}
                     </div>
                 </main>
             </div>
         </>
-        : ''
     )
 }
 

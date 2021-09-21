@@ -129,7 +129,7 @@ const Post = memo(({post, isPost, me}) => {
                         <div className='postInner'>
                             <div className='authorAvatarBlock'>
                                 <Link to={'/user/' + authorUsername}>
-                                    <img className='authorAvatar' src={authorAvatar} onError={(e)=>{e.target.onerror = null; e.target.src=errorImgPNG}} alt='avatar'/>
+                                    <img className='authorAvatar' src={authorAvatar} onError={(e)=>{e.target.onerror = null; e.target.src=errorImgPNG}} alt=''/>
                                 </Link>
                             </div>
                             <div className='postBlock'>
@@ -141,7 +141,7 @@ const Post = memo(({post, isPost, me}) => {
                                     <div className='postContent' id={'postContent_'+id} onClick={e => {e.preventDefault();}}>
                                         {content}
                                     </div>
-                                    {isPost ? 
+                                    {isPost && 
                                         <div className={'postImages n_'+images.length} id={'postImages_' + id}>
                                         {images.map((image, index) => (
                                             <div key={image.image} className={'postImage n_'+images.length} onClick={e => {
@@ -151,22 +151,23 @@ const Post = memo(({post, isPost, me}) => {
                                             }} style={{backgroundImage : `url(${image.image ? image.image : image})`}}></div>
                                         ))}
                                     </div>
-                                    : ''}                                  
+                                    }                                  
                                     <div className='other'>
                                         <Link to={ isPost ? '/post/' + id : '/comment/' + id}>
                                             <button id={'commentBtn_' + id} className='comment_btn'>{commentsCount}</button>
                                         </Link>
                                         <button id={'repostBtn_' + id} className='repost_btn'>0</button>
-                                        <LBRButtons id={id} isLiked={isLiked} isPost={isPost} likesCount={likesCount} myUsername={me ? me.username : ''} button={0}/>
-                                        <LBRButtons id={id} isBookmarked={isBookmarked} isPost={isPost} myUsername={me ? me.username : ''} button={1}/>
+                                        <LBRButtons id={id} isLiked={isLiked} isPost={isPost} likesCount={likesCount} myUsername={me && me.username} button={0}/>
+                                        <LBRButtons id={id} isBookmarked={isBookmarked} isPost={isPost} myUsername={me && me.username} button={1}/>
                                     </div>
                             </div>
                             <button className='postSettingsButton' onClick={e => {e.preventDefault(); e.stopPropagation(); setSettingVisibility(p => !p)}}>···</button>
                         </div>
-                        {settingVisibility ? 
+                        {settingVisibility && 
                             <PostSettings post={isPost} myUsername={me.username} userProfileSettings={false} username={authorUsername} id={id}
                             setBeingRedacted={setBeingRedactedFromChild} setSettingVisibility={setSettingVisibilityFromChild} setColor={setColorFromChild}/>
-                        :''}
+                        }
+                       
                     </>
                 }
             </div>      

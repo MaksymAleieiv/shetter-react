@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router';
-import { getMe } from '../../store/getMeAction';
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector} from 'react-redux'
 import axios from 'axios';
 
 import Header from '../pageComponents/Header';
@@ -11,10 +10,6 @@ import Profile from '../pageComponents/Profile';
 import Feed from '../pageComponents/feeds/Feed';
 
 function UserPage() {
-    const dispatch = useDispatch()
-    useEffect(() => {
-        dispatch( getMe() )
-    }, [])
     const { username } = useParams();
     
     const overlay = useSelector(state => state.overlay);
@@ -56,8 +51,8 @@ function UserPage() {
         if(shetsVisibility === 2 && shetsLikesVisibility) return (
             <>
                 <div id='userPageLikes__buttons'>
-                    <button onClick={() => setShetsLikesVisibility(true)} className={shetsLikesVisibility ? 'active' : ''}>Shets <span className='cf c'>{usersData.user_post_likes_count}</span></button>
-                    <button onClick={() => setShetsLikesVisibility(false)} className={!shetsLikesVisibility ? 'active' : ''}>Replies <span className='cf c'>{usersData.user_comment_likes_count}</span></button>
+                    <button onClick={() => setShetsLikesVisibility(true)} className={shetsLikesVisibility && 'active'}>Shets <span className='cf c'>{usersData.user_post_likes_count}</span></button>
+                    <button onClick={() => setShetsLikesVisibility(false)} className={!shetsLikesVisibility && 'active'}>Replies <span className='cf c'>{usersData.user_comment_likes_count}</span></button>
                 </div>
                 <div>
                     <Feed urlNum={4}/>
@@ -67,8 +62,8 @@ function UserPage() {
         if(shetsVisibility === 2 && !shetsLikesVisibility) return (
             <>
                 <div id='userPageLikes__buttons'>
-                    <button onClick={() => setShetsLikesVisibility(true)} className={shetsLikesVisibility ? 'active' : ''}>Shets <span className='cf c'>{usersData.user_post_likes_count}</span></button>
-                    <button onClick={() => setShetsLikesVisibility(false)} className={!shetsLikesVisibility ? 'active' : ''}>Replies <span className='cf c'>{usersData.user_comment_likes_count}</span></button>
+                    <button onClick={() => setShetsLikesVisibility(true)} className={shetsLikesVisibility && 'active'}>Shets <span className='cf c'>{usersData.user_post_likes_count}</span></button>
+                    <button onClick={() => setShetsLikesVisibility(false)} className={!shetsLikesVisibility && 'active'}>Replies <span className='cf c'>{usersData.user_comment_likes_count}</span></button>
                 </div>
                 <div>
                     <Feed urlNum={12}/>
@@ -88,7 +83,7 @@ function UserPage() {
                                 <Profile userData={usersData} setShetsVisibility={setShetsVisibilityFromChild} shetsVisibility={shetsVisibility}/>
                                {setFeed()}
                             </div>
-                        { me.id !== -1 ? <RightSidebar /> : '' }
+                        {me.id !== -1 && <RightSidebar /> }
                     </div>
                 </main>
             </div>

@@ -9,27 +9,24 @@ import RightSidebar from '../pageComponents/RightSidebar';
 import Post from '../pageComponents/Post';
 import CommentsPart from '../pageComponents/postComponents/CommentsPart';
 import CreatePostForm from '../pageComponents/postComponents/CreatePostForm';
-import { getMe } from '../../store/getMeAction';
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector } from 'react-redux'
 
 function PostPage() {
-    const dispatch = useDispatch()
     useEffect(() => {
         window.scroll(0,0)
-        dispatch( getMe() )
+        document.title = 'Single Post';
     }, [])
     const me = useSelector(state => state.me.me);
     const overlay = useSelector(state => state.overlay)
     const post = useSelector(state => state.posts.posts)
     const { post_id } = useParams();
-    document.title = 'Single Post';
     
 
     const {loading, error} = PostsLoader(post_id, 6)
     const [postWarningColor, setColor] = useState(0);
     const setColorFromChild = (c) => setColor(c)
     const colorFunc = (c) => {
-        if(postWarningColor !== 0)setTimeout(() => setColor(0), 500)
+        if(postWarningColor !== 0) setTimeout(() => setColor(0), 500)
         switch(c){
             case 0 : return 'post'
             case 1 : return 'post error'
@@ -51,21 +48,21 @@ function PostPage() {
                         <LeftSidebar/>
                             <div id='feed' className='feed_subscriptions'>
                                 {showText()}
-                                {post.id >= 0 ? <>
-                                        <div key={'p'+post.id}>  
-                                            <div>
-                                                <Post post={post} isPost={true} me={me} />
-                                            </div>
-                                            {me.id !== -1 ? 
-                                                <div className={colorFunc(postWarningColor)}>
-                                                    <CreatePostForm me={me} post={false} parentID={''} postID={post_id} setColor={setColorFromChild}/>
-                                                </div>
-                                            : ''}
-                                            <CommentsPart isPost={true} me={me}/>
+                                {post.id >= 0 && 
+                                    <div key={'p'+post.id}>  
+                                        <div>
+                                            <Post post={post} isPost={true} me={me} />
                                         </div>
-                                </> : ''} 
+                                        {me.id !== -1 && 
+                                            <div className={colorFunc(postWarningColor)}>
+                                                <CreatePostForm me={me} post={false} parentID={''} postID={post_id} setColor={setColorFromChild}/>
+                                            </div>
+                                        }
+                                        <CommentsPart isPost={true} me={me}/>
+                                    </div>
+                                } 
                             </div>
-                        {me.id !== -1 ? <RightSidebar /> : ''}
+                        {me.id !== -1 && <RightSidebar /> }
                     </div>
                 </main>
             </div>
