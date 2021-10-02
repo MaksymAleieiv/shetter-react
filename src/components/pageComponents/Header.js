@@ -2,7 +2,7 @@ import logoSVG from '../images/Logo.svg';
 import searchSVG from '../images/Search.svg';
 import ProfilePartHeader from '../pageComponents/ProfilePartHeader';
 import { useSelector } from 'react-redux';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import CreatePostForm from './postComponents/CreatePostForm';
 import { useDispatch } from 'react-redux'
 import { render, unmountComponentAtNode } from 'react-dom';
@@ -14,13 +14,15 @@ function Header() {
     console.log('header rerendered')
     const dispatch = useDispatch()
     const me = useSelector(state => state.me.me);
-    const keyListener = () => {
-        function Search(e){
+    useEffect(() => {
+        const Search = (e) => {
             if(e.keyCode === 13) alert(document.getElementById('searchInput').value)
-            document.removeEventListener('keydown', Search)
         }
         document.addEventListener('keydown', Search)
-    }
+        return () => {
+            document.removeEventListener('keydown', Search)
+        }
+    }, [])
     const [postWarningColor, setColor] = useState(0);
     const setColorFromChild = (c) => setColor(c)
     const openCreateForm = () => { 
@@ -59,7 +61,7 @@ function Header() {
                         <button id='searchButton'>
                             <img src={searchSVG} alt='img' />
                         </button>
-                        <input id='searchInput' type='search' placeholder='Search...' onChange={keyListener}></input>
+                        <input id='searchInput' type='search' placeholder='Search...'></input>
                     </label>
                 </li>
                 <li id='newPost'>

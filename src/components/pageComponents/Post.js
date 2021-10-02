@@ -41,25 +41,19 @@ const Post = memo(({post, isPost, me}) => {
     const commentsCount = postP.comments_count
     const likesCount = postP.total_likes
     const isBookmarked = postP.is_booked
-    const getName = (authorUsername, firstName, lastName) => {
-        if(firstName === '' && lastName === '') return authorUsername;
-        if(firstName !== '' && lastName === '') return firstName;
-        if(firstName === '' && lastName !== '') return lastName;
-        if(firstName !== '' && lastName !== '') return firstName + ' ' + lastName;
-    }
     const getTime = (datePosted, lastEdited) => {
-        function timeSince(date) {
+        const timeSince = (date) => {
             const seconds = Math.floor((new Date() - date) / 1000);   
-            const interval = seconds / 31536000;     
+            let interval = seconds / 31536000;     
             if (interval > 1) return Math.floor(interval) + ' years ago';
-            const interval1 = seconds / 2592000;
-            if (interval1 > 1) return Math.floor(interval1) + ' months ago';
-            const interval2 = seconds / 86400;
-            if (interval2 > 1) return Math.floor(interval2) + ' days ago';
-            const interval3 = seconds / 3600;
-            if (interval3 > 1) return Math.floor(interval3) + ' hours ago';
-            const interval4 = seconds / 60;
-            if (interval4 > 1) return Math.floor(interval4) + ' minutes ago';
+            interval = seconds / 2592000;
+            if (interval > 1) return Math.floor(interval) + ' months ago';
+            interval = seconds / 86400;
+            if (interval > 1) return Math.floor(interval) + ' days ago';
+            interval = seconds / 3600;
+            if (interval > 1) return Math.floor(interval) + ' hours ago';
+            interval = seconds / 60;
+            if (interval > 1) return Math.floor(interval) + ' minutes ago';
             return ' just now';
           }
         const date = timeSince(new Date(new Date(datePosted)))
@@ -135,7 +129,7 @@ const Post = memo(({post, isPost, me}) => {
                             <div className='postBlock'>
                                 <div>
                                     <Link className='Username' to={'/user/' + authorUsername}>
-                                        {getName(authorUsername, firstName, lastName)}
+                                        {firstName} {lastName} { !firstName && !lastName && authorUsername}
                                     </Link><span className='tag'>@{authorUsername} · {getTime(datePosted, lastEdited)}</span>
                                 </div>
                                     <div className='postContent' id={'postContent_'+id} onClick={e => {e.preventDefault();}}>

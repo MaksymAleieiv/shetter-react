@@ -1,5 +1,5 @@
 import PostSettings from './postComponents/PostSettings';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import FastAverageColor from 'fast-average-color'
 import axios from 'axios';
 import { useSelector } from 'react-redux'
@@ -8,12 +8,6 @@ import { Link } from 'react-router-dom';
 
 function Profile({userData, setShetsVisibility, shetsVisibility}) {
     const me = useSelector(state => state.me.me);
-    const getName = (authorUsername, firstName, lastName) => {
-        if(firstName === '' && lastName === '') return authorUsername;
-        if(firstName !== '' && lastName === '') return firstName;
-        if(firstName === '' && lastName !== '') return lastName;
-        if(firstName && lastName) return firstName + ' ' + lastName;
-    }
     const [settingVisibility, setSettingVisibility] = useState(false);
     const setSettingVisibilityFromChild = (c) => setSettingVisibility(c);
     const [isSubscribed, setSubscribed] = useState(userData.is_subscribed);
@@ -30,13 +24,15 @@ function Profile({userData, setShetsVisibility, shetsVisibility}) {
         setNotificationsSub(p => !p)
     }
 
-    const closeSettingsListener = () => {
-        function closeSettings(){
+    useEffect(() => {
+        const closeSettings = () => {
             setSettingVisibility(false);
-            window.removeEventListener('click', closeSettings)
         }
         window.addEventListener('click', closeSettings)
-    }
+        return () => {
+            window.removeEventListener('click', closeSettings)
+        }
+    }, [])
 
     const [averageColor, setAverageColor] = useState();
     function getAverageRGB(img) {
@@ -76,7 +72,7 @@ function Profile({userData, setShetsVisibility, shetsVisibility}) {
                 <div className={colorFunc(postWarningColor)} id={userData.bio !== undefined ? profileHeightFunc(userData.bio) : ''}>                    
                     {me && me.username !== userData.username ?
                         <div className={isSubscribed ? 'settingsForThisUser' : 'settingsForThisUser long'}>
-                            <button className='userSettingsButton' onClick={e => {e.stopPropagation(); e.preventDefault(); closeSettingsListener(); setSettingVisibility(p => !p)}}>···</button>
+                            <button className='userSettingsButton' onClick={e => {e.stopPropagation(); e.preventDefault(); setSettingVisibility(p => !p)}}>···</button>
                             <button onClick={SubscribeToNotifications} className={notificationsSub ? 'setNotificationsButton sub' : 'setNotificationsButton notsub'}><i></i></button>
                             {isSubscribed ? 
                                 <button onClick={Subscribe} className='subscribeButton sub'><i></i></button>
@@ -87,11 +83,14 @@ function Profile({userData, setShetsVisibility, shetsVisibility}) {
                     : 
                         <div className='settingsForThisUser short'>
                             <Link to='/settings' className='goToSettings' ><i></i></Link>
-                            <button className='userSettingsButton' onClick={e => {e.stopPropagation(); e.preventDefault(); closeSettingsListener(); setSettingVisibility(p => !p)}}>···</button>
+                            <button className='userSettingsButton' onClick={e => {e.stopPropagation(); e.preventDefault(); setSettingVisibility(p => !p)}}>···</button>
                         </div>
                     }
                     <div id='userInfo__Info'>
-                        <span className='Username__userProfile'>{getName(userData.username, userData.first_name, userData.last_name)}</span> <span className='tag tag__userProfile'>@{userData.username}</span>
+                        <span className='Username__userProfile'>
+                            {userData.first_name} {userData.last_name} { !userData.first_name && !userData.last_name && userData.username}
+                            </span>
+                        <span className='tag tag__userProfile'>@{userData.username}</span>
                         <div id='userStatus'>{userData.bio}</div>
                         <div id='userFollowInfo'>
                             <span className='__bold'>{userData.following_count}</span>

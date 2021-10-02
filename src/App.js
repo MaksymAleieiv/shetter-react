@@ -17,7 +17,7 @@ import SubscriptionsPage from './components/pages/Subscriptions';
 
 import { useEffect } from 'react';
 import { getMe } from './store/getMeAction';
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 
 function App() {
   const dispatch = useDispatch()
@@ -29,7 +29,7 @@ function App() {
         config => {
           const access = window.localStorage.getItem('access');
           if(access) config.headers.Authorization = 'Bearer ' + access;
-          console.log('req', config)
+          //console.log('req', config)
             return config;
         },
         error => {
@@ -37,7 +37,7 @@ function App() {
         });
 
   axios.interceptors.response.use((response) => {
-      console.log('res', response)
+      //console.log('res', response)
       return response
     }, error => {
       if(window.localStorage.getItem('refresh')){

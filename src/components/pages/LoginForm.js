@@ -33,7 +33,7 @@ function LoginForm() {
             console.log(res)
             window.localStorage.setItem('refresh', res.refresh);
             window.localStorage.setItem('access', res.access);
-            document.location = '/'
+            document.location.reload();
         })
         .catch(response => {
             const res = JSON.parse(response.request.response)
@@ -46,7 +46,7 @@ function LoginForm() {
     }
     const b = '   Back';
     const loginGoogle = (response) => {
-        ReglogGoogle(true, response[Object.getOwnPropertyNames(response)[1]].login_hint, response.profileObj.email, response.Zb.idpId, response.profileObj.givenName, setGenTextFromChild) 
+        ReglogGoogle(true, response[Object.getOwnPropertyNames(response)[1]].login_hint, response.profileObj.email, response[Object.getOwnPropertyNames(response)[1]].idpId, response.profileObj.givenName, setGenTextFromChild) 
     }
     return (
             <div className='RegLogFor' style={{height : '100%'}}>

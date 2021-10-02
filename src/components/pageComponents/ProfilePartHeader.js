@@ -24,6 +24,7 @@ function ProfilePartHeader({me}) {
             window.localStorage.removeItem('access')
             window.localStorage.removeItem('refresh')
             dispatch( clearMe_Action() )
+            document.location.reload()
         })
     }
     console.log(me)
@@ -35,7 +36,7 @@ function ProfilePartHeader({me}) {
                       </Link>
                   </div>
                   <div id='profileBtn' className={dropDownVisible ? 'active' : null} onClick={() => setDropDownVisible(p => !p)}></div>
-                  {dropDownVisible ? <div id='profileDropdown'>
+                  {dropDownVisible && <div id='profileDropdown'>
                       <ul>
                           <li>
                               <Link to={'/user/' + me.username}><span className='dropDown__listItem' id='Profile'>Profile</span></Link>
@@ -51,7 +52,6 @@ function ProfilePartHeader({me}) {
                           </li>
                       </ul>
                   </div>
-                  : null
                   }
                   
               </li>

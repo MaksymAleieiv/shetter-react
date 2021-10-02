@@ -42,7 +42,7 @@ function RegistrationForm() {
                     const res = JSON.parse(response.request.response);
                     window.localStorage.setItem('refresh', res.refresh);
                     window.localStorage.setItem('access', res.access);
-                    document.location = '/'
+                    document.location.reload();
                 })
                 .catch(() => {document.location = '/login'})
             })
@@ -58,7 +58,7 @@ function RegistrationForm() {
     }
     const b = '   Back'
     const loginGoogle = (response) => {
-        ReglogGoogle(false, response[Object.getOwnPropertyNames(response)[1]].login_hint, response.profileObj.email, response.Zb.idpId, response.profileObj.givenName, setGenTextFromChild)
+        ReglogGoogle(false, response[Object.getOwnPropertyNames(response)[1]].login_hint, response.profileObj.email, response[Object.getOwnPropertyNames(response)[1]].idpId, response.profileObj.givenName, setGenTextFromChild)
     }
     return (
             <div className='RegLogFor' style={{height : '100%'}}>

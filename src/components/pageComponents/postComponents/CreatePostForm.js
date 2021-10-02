@@ -37,12 +37,6 @@ function CreatePostForm({idRed, beingRedacted, setBeingRedacted, content, images
     const [smile, setSmile] = useState(false);
     const [ignored, forceUpdate] = useReducer(x => x + 1, 0);
 
-    const getName = (authorUsername, firstName, lastName) => {
-        if(firstName === '' && lastName === '') return authorUsername;
-        if(firstName !== '' && lastName === '') return firstName;
-        if(firstName === '' && lastName !== '') return lastName;
-        if(firstName !== '' && lastName !== '') return firstName + ' ' + lastName;
-    }
     const handleInput = (event) => {
         const imgBlobArray = Array.from(event.target.files).map(img => URL.createObjectURL(img))
         Array.from(event.target.files).forEach(file => {
@@ -165,7 +159,7 @@ function CreatePostForm({idRed, beingRedacted, setBeingRedacted, content, images
                             <div className='postBlock'>
                                 <div>
                                     <span className='Username'>
-                                        {getName(me.username, me.first_name, me.last_name)}
+                                        {me.first_name} {me.last_name} { !me.first_name && !me.last_name && me.username}
                                     </span><span className='tag'>@{me.username}</span>
                                 </div>
                                 <div className='postContent'>

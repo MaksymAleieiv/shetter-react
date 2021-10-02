@@ -16,7 +16,10 @@ export default function ReglogGoogle(l, t, e, i, n, s) {
                 url : '/token/refresh/',
                 data : { 'refresh' : JSON.parse(res.request.response).refresh }
             })
-            .then(res => {window.localStorage.setItem('access', JSON.parse(res.request.response).access); document.location = '/'})
+            .then(res => {
+                window.localStorage.setItem('access', JSON.parse(res.request.response).access); 
+                document.location.reload();
+            })
             .catch(err => console.error(JSON.parse(err.request.response)))
         })
         .catch(err => {
