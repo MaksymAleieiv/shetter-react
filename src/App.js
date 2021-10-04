@@ -17,34 +17,27 @@ import SubscriptionsPage from './components/pages/Subscriptions';
 
 import { useEffect } from 'react';
 import { getMe } from './store/getMeAction';
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
 function App() {
+  const isAuth = useSelector(state => state.me.me.id) !== -1
   const dispatch = useDispatch()
-  useEffect(() => {
-      dispatch( getMe() )
-  }, [])
   axios.defaults.baseURL = 'https://fierce-dusk-92502.herokuapp.com';
   axios.interceptors.request.use(
         config => {
           const access = window.localStorage.getItem('access');
           if(access) config.headers.Authorization = 'Bearer ' + access;
-          //console.log('req', config)
             return config;
         },
         error => {
             Promise.reject(error)
         });
-
   axios.interceptors.response.use((response) => {
-      //console.log('res', response)
       return response
     }, error => {
-      if(window.localStorage.getItem('refresh')){
-        //console.log('err', error.response)
+      if(isAuth){
         const originalRequest = error.config;
-        if (error.response && error.response.status >= 400 && error.response.status < 500 && !originalRequest._retry) {
-            originalRequest._retry = true;
+        if (error.response && error.response.status === 401) {
             return axios.post('/token/refresh/',
               {
                 'refresh' : window.localStorage.getItem('refresh')
@@ -62,9 +55,25 @@ function App() {
       }
     return Promise.reject(error);
   })
+  useEffect(() => {
+      dispatch( getMe() )
+  }, [])
+
   return (
       <Router>
-        { window.localStorage.getItem('refresh') === null ? 
+        { isAuth ? 
+          <Switch>
+            <Route exact path='/' component={Home}/>
+            <Route exact path='/user/:username' component={UserPage}/>
+            <Route exact path='/post/:post_id' component={PostPage}/>
+            <Route exact path='/comment/:comment_id' component={CommentPage}/>
+            <Route exact path='/hot' component={HotPage}/>
+            <Route exact path='/subscriptions' component={SubscriptionsPage}/>
+            <Route exact path='/settings' component={Settings}/>
+            <Route exact path='/bookmarks' component={Bookmarks}/>
+            <Redirect to='/'/>
+          </Switch>
+          :
           <Switch>
             <Route exact path='/' component={Home}/>
             <Route exact path='/registration' component={RegisterForm}/>
@@ -75,18 +84,6 @@ function App() {
             <Route exact path='/comment/:comment_id' component={CommentPage}/>
             <Route exact path='/subscriptions' component={SubscriptionsPage}/>
             <Route exact path='/hot' component={HotPage}/>
-            <Redirect to='/'/>
-          </Switch>
-          :
-          <Switch>
-            <Route exact path='/' component={Home}/>
-            <Route exact path='/user/:username' component={UserPage}/>
-            <Route exact path='/post/:post_id' component={PostPage}/>
-            <Route exact path='/comment/:comment_id' component={CommentPage}/>
-            <Route exact path='/hot' component={HotPage}/>
-            <Route exact path='/subscriptions' component={SubscriptionsPage}/>
-            <Route exact path='/settings' component={Settings}/>
-            <Route exact path='/bookmarks' component={Bookmarks}/>
             <Redirect to='/'/>
           </Switch>
         }
