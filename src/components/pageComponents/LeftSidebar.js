@@ -6,11 +6,11 @@ function LeftSidebar() {
     return (
         <div id='leftSideBar'>
             <nav>
-                <li id='Hot_Recent' className={document.title === 'Hot' && 'active'}>
+                <li id='Hot_Recent' className={document.title === 'Hot' ? 'active' : undefined}>
                     <Link id='Hot' to='/hot'>Hot</Link>
                     <div id='Recent'></div>
                 </li>
-                <li className={document.title === 'Subscriptions' && 'active'}>
+                <li className={document.title === 'Subscriptions' ? 'active' : undefined}>
                     <Link id='Subscriptions' to='/subscriptions'>Subscriptions</Link>
                 </li>
                 <li style={{maxHeight: 1, padding: 0}}>

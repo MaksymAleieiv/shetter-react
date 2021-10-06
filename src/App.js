@@ -35,24 +35,20 @@ function App() {
   axios.interceptors.response.use((response) => {
       return response
     }, error => {
-      if(isAuth){
         const originalRequest = error.config;
-        if (error.response && error.response.status === 401) {
-            return axios.post('/token/refresh/',
-              {
-                'refresh' : window.localStorage.getItem('refresh')
-              })
-              .then(res => {
-                console.log(res)
-                if (res.status === 200) {
-                    window.localStorage.setItem('access', JSON.parse(res.request.response).access)
-                    originalRequest.headers.Authorization = 'Bearer ' + JSON.parse(res.request.response).access
-                    return axios(originalRequest);
-                }
-              })
+        if (error.response && (error.response.status === 401 || error.response.status === 403)) {
+          return axios.post('/token/refresh/',
+            {
+              'refresh' : window.localStorage.getItem('refresh')
+            })
+            .then(res => {
+              if (res.status === 200) {
+                  window.localStorage.setItem('access', JSON.parse(res.request.response).access)
+                  originalRequest.headers.Authorization = 'Bearer ' + JSON.parse(res.request.response).access
+                  return axios(originalRequest);
+              }
+            })
         }
-
-      }
     return Promise.reject(error);
   })
   useEffect(() => {
