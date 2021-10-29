@@ -7,7 +7,6 @@ import { clearMe_Action } from '../../store/meReducer'
 import errorImgPNG from '../images/errorImg.png'
 
 function ProfilePartHeader({me}) {
-    console.log('profile part header rerendered')
     const dispatch = useDispatch();
 
     const [dropDownVisible, setDropDownVisible] = useState(false);
@@ -27,7 +26,6 @@ function ProfilePartHeader({me}) {
             document.location.reload()
         })
     }
-    console.log(me)
     return (me.id !== -1 ? 
               <li id='myProfile'>
                   <div>

@@ -99,6 +99,8 @@ function CreatePostForm({idRed, beingRedacted, setBeingRedacted, content, images
             filesArray.forEach(file => {
                 formData.append('image', file)
             })
+            console.log(formData)
+            console.log(filesArray)
         const url = post ? '/api/v1/posts/' : '/api/v1/comments/';
         axios.post(url, formData)
         .then(() => {
@@ -116,7 +118,6 @@ function CreatePostForm({idRed, beingRedacted, setBeingRedacted, content, images
                 })
                 .catch(err => console.log(err.response))
             }
-            else document.location.reload()
             setLoading(false)
             if(beingRedacted) setBeingRedacted(false);
         })

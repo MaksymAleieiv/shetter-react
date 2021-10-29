@@ -4,7 +4,6 @@ import axios from 'axios';
 import errorImgPNG from '../images/errorImg.png'
 
 function RightSidebar() {
-    console.log('rigth sidebar rerendered')
     const [SuggestionsData, setSuggestionsData] = useState([]);
     useEffect(() => {
         const getSuggestions = async () => {

@@ -11,7 +11,6 @@ import { Provider } from 'react-redux';
 import { store } from '../../store/index_Reducer'
 
 function Header() {
-    console.log('header rerendered')
     const dispatch = useDispatch()
     const me = useSelector(state => state.me.me);
     useEffect(() => {

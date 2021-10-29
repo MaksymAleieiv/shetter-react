@@ -25,6 +25,7 @@ function App() {
   axios.defaults.baseURL = 'https://fierce-dusk-92502.herokuapp.com';
   axios.interceptors.request.use(
         config => {
+          console.log(config)
           const access = window.localStorage.getItem('access');
           if(access) config.headers.Authorization = 'Bearer ' + access;
             return config;
@@ -37,7 +38,10 @@ function App() {
     }, error => {
         const originalRequest = error.config;
         if (error.response && (error.response.status === 401 || error.response.status === 403)) {
-          return axios.post('/token/refresh/',
+          let ins = axios.create({
+            baseURL: 'https://fierce-dusk-92502.herokuapp.com'
+          })
+          return ins.post('/token/refresh/',
             {
               'refresh' : window.localStorage.getItem('refresh')
             })
@@ -48,11 +52,13 @@ function App() {
                   return axios(originalRequest);
               }
             })
+            .catch(res => {localStorage.clear(); document.location.reload()})
         }
     return Promise.reject(error);
   })
   useEffect(() => {
       dispatch( getMe() )
+      alert('In order to get access to creation and editing posts you must be registred. You can use your Google account or create a new one using random email.')
   }, [])
 
   return (

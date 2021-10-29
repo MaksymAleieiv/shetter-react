@@ -12,7 +12,6 @@ import { store } from '../../../store/index_Reducer'
 import axios from 'axios';
 
 function Feed({urlNum}) {
-    console.log('feed rerendered')
     const dispatch = useDispatch()
     
     const [startPos, setStartPos] = useState(0);

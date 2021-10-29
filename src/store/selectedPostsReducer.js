@@ -9,8 +9,6 @@ const TOGGLE_SELECTED_POSTS = 'ADD_SELECTED_POSTS'
 const TOOGLE_SELECTION_MODE = 'TOOGLE_SELECTION_MODE'
 
 export const selectedPostReducer = (state = defaultState, action) => {
-    console.log(state)
-    console.log(action)
     switch(action.type){
         case TOGGLE_SELECTED_COMMENTS : 
             let newCom = state.comments.indexOf(action.payload) === -1 ? 

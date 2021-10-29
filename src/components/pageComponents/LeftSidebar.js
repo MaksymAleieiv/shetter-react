@@ -1,8 +1,6 @@
 import { Link } from 'react-router-dom';
 
 function LeftSidebar() {
-    console.log('left sidebar rerendered')
-
     return (
         <div id='leftSideBar'>
             <nav>

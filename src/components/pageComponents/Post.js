@@ -13,7 +13,6 @@ import { toggleSelectedPosts_Action, toggleSelectedComments_Action } from '../..
 
 
 const Post = memo(({post, isPost, me}) => {
-    console.log('post rerendered')
     const dispatch = useDispatch();
 
     const [postP, setPostP] = useState(post);

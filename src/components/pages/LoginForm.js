@@ -97,7 +97,7 @@ function LoginForm() {
                         </form>
                     )}
                 </Form>
-                <button id='goBack' onClick={() => document.location = '/registration'}>{b}</button>
+                <Link id='goBack' to='/registration'>{b}</Link>
             </div>
                 
     )

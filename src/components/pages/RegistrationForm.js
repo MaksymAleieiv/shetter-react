@@ -129,7 +129,7 @@ function RegistrationForm() {
                         </form>
                     )}
                 </Form>
-                <button id='goBack' onClick={() => document.location = '/'}>{b}</button>
+                <Link id='goBack' to='/'>{b}</Link>
                 <div id='loginAskHolder'>
                     Already have an account? 
                     <Link to='/login' className='f5Text'>Log In</Link>

@@ -220,6 +220,7 @@
 #userStatus{
     margin-top: 12px;
     width: 568px;
+    word-wrap: break-word;
 }
 
 #userFollowInfo{
