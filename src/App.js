@@ -58,7 +58,6 @@ function App() {
   })
   useEffect(() => {
       dispatch( getMe() )
-      alert('In order to get access to creation and editing posts you must be registred. You can use your Google account or create a new one using random email.')
   }, [])
 
   return (

@@ -362,8 +362,8 @@
 
 .postImages.n_0,
 #newPostImages.n_0{
-    grid-template-columns: 0;
-    grid-template-rows: 0;
+    grid-template-columns: 0!important;
+    grid-template-rows: 0!important;
     padding-bottom: 0px;
 }
 

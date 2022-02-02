@@ -25,8 +25,11 @@ input[type="search"]::-webkit-search-results-decoration {
   -webkit-appearance:none;
 }
 
+html,
 body{
     background: #faf9ff;
+    max-width: 100%;
+    overflow-x: hidden;
 }
 
 main{

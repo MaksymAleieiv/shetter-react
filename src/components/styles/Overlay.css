@@ -93,6 +93,11 @@
     .postContent{
         max-width: 390px;
     }
+    .postImages{
+        max-width: 390px;
+        grid-template-columns: 97px 97px 97px 97px!important;
+        grid-template-rows: 97px 97px!important;
+    }
     .settingsForm.formInput{
         max-width: 468px;
     }
